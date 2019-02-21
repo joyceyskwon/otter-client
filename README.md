@@ -4,12 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `Frontend`
 
-[x] Interacting with a complex API
-[ ] Auth
-[ ] Tests
-[ ] Redux
-[ ] Custom CSS
-[ ] One significant refactor
+- [x] Interacting with a complex API
+- [ ] Auth
+- [ ] Tests
+- [ ] Redux
+- [ ] Custom CSS
+- [ ] One significant refactor
 
 In the project directory, you can run:
 
