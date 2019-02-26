@@ -1,7 +1,7 @@
 import React from 'react'
 import MonthFilter from './MonthFilter'
 import CategoryItem from './CategoryItem'
-import TransactionsList from './TransactionsList'
+// import TransactionsList from './TransactionsList'
 import { connect } from 'react-redux'
 import { fetchTransactions, filterByMonth } from '../actions/index'
 
@@ -26,7 +26,7 @@ class CategoryList extends React.Component {
           filterByMonth={this.filterByMonth}
         />
 
-        <TransactionsList />
+        <CategoryItem />
 
         <select
           name="name"
