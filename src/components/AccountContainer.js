@@ -1,9 +1,15 @@
 import React from 'react'
 import TransactionsList from './TransactionsList'
 import TransactionForm from './TransactionForm'
-import MonthFilter from './MonthFilter'
+import CategoryList from './CategoryList'
+import { connect } from 'react-redux'
+import { fetchTransactions } from '../actions/index'
 
-class Transactions extends React.Component {
+class AccountContainer extends React.Component {
+
+  componentDidMount() {
+    this.props.fetchTransactions()
+  }
 
   getMonth = transaction => {
     let month = transaction.date.split("-")[1]
@@ -27,16 +33,21 @@ class Transactions extends React.Component {
       <div>
         <TransactionForm />
         <hr/>
-        <TransactionsList />
-        <hr/>
-        <MonthFilter
+        <TransactionsList
           transactions={this.props.transactions}
-          filterByMonth={this.filterByMonth}
         />
-        <TransactionsList />
+        <hr/>
+        <CategoryList
+          transactions={this.props.transactions}
+        />
       </div>
     )
   }
 }
 
-export default Transactions
+const mapStateToProps = state => ({
+  transactions: state.transactions.items,
+  newTransaction: state.transactions.item
+})
+
+export default connect(mapStateToProps, { fetchTransactions })(AccountContainer)

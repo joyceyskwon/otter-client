@@ -1,7 +1,7 @@
 import {
   FETCH_TRANSACTIONS,
   NEW_TRANSACTION,
-  FILTER_TRANSACTIONS,
+  FILTER_BY_MONTH,
   FETCH_CATEGORIES
 } from './types'
 
@@ -34,14 +34,8 @@ export const createTransaction = (transactionData) => dispatch => {
   )
 }
 
-export const filterTransactions = (transactions, e) => dispatch => {
-  let filteredTransactions = transactions.filter(transaction => {
-    return transaction.category_id === e.target.value
-  })
-  dispatch({
-    type: FILTER_TRANSACTIONS,
-    payload: filteredTransactions
-  })
+export const filterByMonth = e => dispatch => {
+  console.log(e.target);
 }
 
 export const fetchCategories = () => dispatch => {
@@ -50,6 +44,7 @@ export const fetchCategories = () => dispatch => {
   .then(categories =>
     dispatch({
       type: FETCH_CATEGORIES,
-      payload: categories.transactions
-    }))
+      payload: categories
+    })
+  )
 }

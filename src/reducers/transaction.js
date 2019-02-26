@@ -1,10 +1,11 @@
 import {
   FETCH_TRANSACTIONS,
   NEW_TRANSACTION,
-  FILTER_TRANSACTIONS
+  FILTER_BY_MONTH
 } from '../actions/types'
 
 const initialState = {
+  currentUser: null, // will use after building AUTH
   items: [],
   item: {}
 }
@@ -21,7 +22,7 @@ export default function(state = initialState, action) {
         ...state,
         item: action.payload
       }
-    case FILTER_TRANSACTIONS:
+    case FILTER_BY_MONTH:
       return {
         ...state,
         items: action.payload

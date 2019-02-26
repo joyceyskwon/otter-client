@@ -1,5 +1,4 @@
 import React from 'react'
-import Filter from './Filter'
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
@@ -7,10 +6,6 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 const today = new Date()
 
 class MonthFilter extends React.Component {
-
-  mappedTransactions = () => {
-    this.props.transactions.map(transaction => transaction.date)
-  }
 
   thisMonth = () => {
     return monthNames[today.getMonth()]
@@ -44,10 +39,6 @@ class MonthFilter extends React.Component {
     }
   }
 
-  handleFilter = (e) => {
-    this.props.filterTransactions(this.props.transactions, e)
-  }
-
   render() {
     return (
       <div>
@@ -71,9 +62,6 @@ class MonthFilter extends React.Component {
           Two months ago: {this.lastLastMonth()}
           </option>
         </select>
-        <Filter
-          handleCategoryFilter={this.handleCategoryFilter}
-        />
       </div>
     )
   }

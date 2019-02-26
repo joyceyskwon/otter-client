@@ -1,21 +1,7 @@
 import React from 'react'
 import TransactionItem from './TransactionItem'
-import { connect } from 'react-redux'
-import { fetchTransactions } from '../actions/index'
 
 class TransactionsList extends React.Component {
-
-  componentDidMount() {
-    this.props.fetchTransactions()
-  }
-
-  transactionItems = () => this.props.transactions.map(transaction => {
-    return <div key={transaction.id}>
-      <h4>{transaction.name}</h4>
-      <p>Date: {transaction.date}</p>
-      <p>Amount: {transaction.amount}</p>
-    </div>
-  })
 
   render() {
     return (
@@ -50,9 +36,4 @@ class TransactionsList extends React.Component {
 
 }
 
-const mapStateToProps = state => ({
-  transactions: state.transactions.items,
-  newTransaction: state.transactions.item
-})
-
-export default connect(mapStateToProps, { fetchTransactions })(TransactionsList)
+export default TransactionsList
