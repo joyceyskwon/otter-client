@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-// import { Route, Switch } from 'react-router-dom'
+import React from 'react'
+import Nav from './Nav'
+import Homepage from './Homepage'
+import Transactions from './Transactions'
+import Login from './Login'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import './App.css'
 
-class App extends Component {
+class App extends React.Component {
 
-  componentDidMount() {
-    this.props.fetchAllTransactions()
-  }
 
   render() {
     return (
-      <div className="App">
-        <h1>Otter</h1>
-
-      </div>
-    );
+      <Router>
+        <div>
+          <Nav />
+          <Route exact path="/" component={Homepage} />
+          <Route path="/profile" component={Transactions} />
+          <Route exact path="/login" component={Login} />
+        </div>
+      </Router>
+    )
   }
+
 }
 
-const mapStateToProps = state => {
-  return {
-    transactions: state.transactions
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App
