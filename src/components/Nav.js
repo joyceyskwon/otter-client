@@ -1,14 +1,22 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Menu } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 const Nav = props => {
   return (
-    <nav>
-      <h1>Otter</h1>
-      <NavLink exact to="/" activeClassName="selected-link">Home</NavLink>
-      <NavLink exact to="/profile" activeClassName="selected-link">Profile</NavLink>
-      <NavLink exact to="/login" activeClassName="selected-link">Login</NavLink>
-    </nav>
+    <Menu>
+      <Link to="/" className="item">Otter</Link>
+      {!props.currentUser ?
+        <Menu.Menu position="right">
+          <Link to="/login" className="item">Login</Link>
+        </Menu.Menu>
+      :
+        <Menu.Menu position="right">
+          <Link to="/profile" className="item">Profile</Link>
+          <Menu.Item onClick={props.logout}>Log out</Menu.Item>
+        </Menu.Menu>
+      }
+    </Menu>
   )
 }
 

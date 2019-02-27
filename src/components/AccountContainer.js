@@ -3,51 +3,34 @@ import TransactionsList from './TransactionsList'
 import TransactionForm from './TransactionForm'
 import CategoryList from './CategoryList'
 import { connect } from 'react-redux'
-import { fetchTransactions } from '../actions/index'
+import { withRouter } from 'react-router-dom'
 
 class AccountContainer extends React.Component {
 
-  componentDidMount() {
-    this.props.fetchTransactions()
-  }
-
-  getMonth = transaction => {
-    let month = transaction.date.split("-")[1]
-    if (month.toString().charAt(0) === 0) {
-      return month.toString().charAt(1)
-    } else {
-      return month
-    }
-  }
-
-  filterByMonth = e => {
-    let filteredTransaction = this.props.transactions.filter(transaction => {
-      return e.target.value === this.getMonth(transaction)
-    })
-    return filteredTransaction
-  }
-
   render() {
-
-    return (
+    console.log('rendering AccountContainer')
+    console.log(this.props)
+    if (this.props.currentUser) {return (
       <div>
         <TransactionForm />
         <hr/>
         <TransactionsList
-          transactions={this.props.transactions}
+          transactions={this.props.currentUser.transactions}
         />
         <hr/>
         <CategoryList
-          transactions={this.props.transactions}
+          transactions={this.props.currentUser.transactions}
         />
       </div>
-    )
+    )} else {
+      return(<h1>Not logged in</h1>)
+    }
   }
 }
 
 const mapStateToProps = state => ({
-  transactions: state.transactions.items,
+  currentUser: state.auth.currentUser,
   newTransaction: state.transactions.item
 })
 
-export default connect(mapStateToProps, { fetchTransactions })(AccountContainer)
+export default withRouter(connect(mapStateToProps)(AccountContainer))

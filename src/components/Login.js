@@ -1,4 +1,8 @@
 import React from 'react'
+import SignUp from './SignUp'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { loginUser } from '../actions/index'
 
 class Login extends React.Component {
 
@@ -14,7 +18,9 @@ class Login extends React.Component {
   }
 
   handleSubmit = e => {
-    console.log("in Login Submit!")
+    e.preventDefault()
+    this.props.loginUser(this.state.username, this.state.password)
+    this.props.history.push('/profile')
   }
 
   render() {
@@ -43,13 +49,15 @@ class Login extends React.Component {
           />
           <br/>
           <br/>
-          <button type="submit" className="ui basic green button">
+          <button type="submit">
             Login
           </button>
         </form>
+
+        <p>Don't have an account yet?<Link to="/signup">Sign up!</Link></p>
       </div>
     )
   }
 }
 
-export default Login
+export default withRouter(connect(null, { loginUser })(Login))

@@ -3,20 +3,59 @@ import Nav from './Nav'
 import Homepage from './Homepage'
 import AccountContainer from './AccountContainer'
 import Login from './Login'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import SignUp from './SignUp'
+import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
+import { createNewUser, loginUser, logout } from '../actions/index'
 import './App.css'
 
 class App extends React.Component {
 
+  componentDidMount() {
+    let token = localStorage.getItem("token")
+    if (token) {
+      fetch('http://localhost:3000/api/v1/current_user', {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(r => r.json())
+      .then(userData => {
+        console.log("in app componentDidMount ", userData);
+        if (userData.errors) {
+          alert(userData.errors)
+        } else {
+          console.log("did it login?");
+          this.props.loginUser(userData)
+        }
+      })
+    }
+  }
+
+  // const transaction = {
+  //   user_id: this.props.currentUser.id,
+  //   category_id: this.state.category_id,
+  //   name: this.state.name,
+  //   date: this.state.date,
+  //   amount: this.state.amount,
+  //   location: this.state.location
+  // }
+
+  logout = userId => {
+    this.props.logout()
+    this.props.history.push('/login')
+  }
 
   render() {
+    console.log(this.props);
     return (
       <Router>
         <div>
-          <Nav />
+          <Nav currentUser={this.props.currentUser} logout={this.logout}/>
           <Route exact path="/" component={Homepage} />
-          <Route path="/profile/:id" component={AccountContainer} />
+          <Route path="/profile" component={AccountContainer} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
         </div>
       </Router>
     )
@@ -24,4 +63,10 @@ class App extends React.Component {
 
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    currentUser: state.auth.currentUser
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { createNewUser, loginUser, logout })(App))

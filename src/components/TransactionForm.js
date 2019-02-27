@@ -5,7 +5,7 @@ import { createTransaction } from '../actions/index'
 class TransactionForm extends React.Component {
 
   state = {
-    user_id: 1,
+    user_id: 0,
     category_id: 0,
     name: '',
     date: '',
@@ -22,7 +22,7 @@ class TransactionForm extends React.Component {
   onSubmit = e => {
     e.preventDefault()
     const transaction = {
-      user_id: this.state.user_id,
+      user_id: this.props.currentUser.id,
       category_id: this.state.category_id,
       name: this.state.name,
       date: this.state.date,
@@ -106,4 +106,8 @@ class TransactionForm extends React.Component {
 
 }
 
-export default connect(null, { createTransaction })(TransactionForm)
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+})
+
+export default connect(mapStateToProps, { createTransaction })(TransactionForm)

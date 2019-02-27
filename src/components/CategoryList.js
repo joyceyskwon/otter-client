@@ -1,21 +1,37 @@
 import React from 'react'
 import MonthFilter from './MonthFilter'
 import CategoryItem from './CategoryItem'
-// import TransactionsList from './TransactionsList'
 import { connect } from 'react-redux'
-import { fetchTransactions, filterByMonth } from '../actions/index'
 
 class CategoryList extends React.Component {
 
-  componentDidMount() {
-    this.props.fetchTransactions()
+  state = {
+    filteredTransactions: [],
+    amountArray: [],
+    totalSpending: 0
   }
 
   filterByMonth = e => {
-    let filteredTransaction = this.props.transactions.filter(transaction => {
-      return e.target.value === this.getMonth(transaction)
+    let filteredTransactions = this.props.transactions.filter(transaction => e.target.value === parseInt(transaction.date.split("-")[1]))
+    this.setState({
+      filteredTransactions
     })
-    return filteredTransaction
+  }
+
+  filterAmount = () => {
+    let amountArray = this.state.filteredTransactions.map(transaction => parseInt(transaction.amount))
+    console.log(amountArray)
+    // this.setState({
+    //   amountArray
+    // },()=>console.log(this.state.amountArray))
+  }
+
+  calculateTotalSpending = () => {
+    let totalSpending = 0.00
+    for(var i = 0, len = this.state.amountArray.length; i < len; i++) {
+      totalSpending += this.state.amountArray[i]
+    }
+    return totalSpending
   }
 
   render() {
@@ -25,9 +41,9 @@ class CategoryList extends React.Component {
         <MonthFilter
           filterByMonth={this.filterByMonth}
         />
-
-        <CategoryItem />
-
+        <hr/>
+        Total spending: ${this.calculateTotalSpending()}
+        <hr/>
         <select
           name="name"
           onChange={this.onChange}
@@ -47,7 +63,8 @@ class CategoryList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.categories.items
+  currentUser: state.auth.currentUser,
+  transactions: state.auth.currentUser.transactions
 })
 
-export default connect(mapStateToProps, { fetchTransactions, filterByMonth })(CategoryList)
+export default connect(mapStateToProps)(CategoryList)
