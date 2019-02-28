@@ -1,6 +1,8 @@
 import React from 'react'
 import TransactionsList from './TransactionsList'
 import TransactionForm from './TransactionForm'
+import TotalBalance from './TotalBalance'
+import Homepage from './Homepage'
 import CategoryList from './CategoryList'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -8,11 +10,13 @@ import { withRouter } from 'react-router-dom'
 class AccountContainer extends React.Component {
 
   render() {
-    console.log('rendering AccountContainer')
-    console.log(this.props)
     if (this.props.currentUser) {return (
       <div>
         <TransactionForm />
+        <hr/>
+        <TotalBalance
+          currentUser={this.props.currentUser}
+        />
         <hr/>
         <TransactionsList
           transactions={this.props.currentUser.transactions}
@@ -23,7 +27,7 @@ class AccountContainer extends React.Component {
         />
       </div>
     )} else {
-      return(<h1>Not logged in</h1>)
+      return(<Homepage />)
     }
   }
 }

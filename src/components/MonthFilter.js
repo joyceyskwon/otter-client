@@ -44,22 +44,22 @@ class MonthFilter extends React.Component {
       <div>
         <select
           name="date"
-          onChange={(e)=>this.props.filterByMonth(e)}
+          onChange={e=>this.props.filterByMonth(e)}
         >
           <option
             value={today.getMonth() + 1}
           >
-          This Month: {this.thisMonth()}
+          {this.thisMonth()}
           </option>
           <option
             value={today.getMonth()}
           >
-          Last month: {this.lastMonth()}
+          {this.lastMonth()}
           </option>
           <option
             value={this.lastLastMonthValue()}
           >
-          Two months ago: {this.lastLastMonth()}
+          {this.lastLastMonth()}
           </option>
         </select>
       </div>

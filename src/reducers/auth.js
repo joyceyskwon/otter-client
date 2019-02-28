@@ -16,7 +16,6 @@ export default function(state = initialState, action) {
         currentUser: action.payload.user
       }
     case SET_CURRENT_USER:
-      console.log("in auth reducer",action.payload)
       return {
         ...state,
         currentUser: action.payload

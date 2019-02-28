@@ -1,8 +1,22 @@
 import React from 'react'
+import { Form } from "semantic-ui-react"
 import { connect } from 'react-redux'
 import { createNewUser } from '../actions/index'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import './App.css'
+
+const bankOptions = [
+  { value: "Bank of America", text: "Bank of America" },
+  { value: "Chase", text: "Chase" },
+  { value: "Wells Fargo", text: "Wells Fargo" },
+  { value: "Citi Bank", text: "Citi Bank" },
+  { value: "Capital One", text: "Capital One" },
+  { value: "American Express", text: "American Express" },
+  { value: "U.S. Bank", text: "U.S. Bank" },
+  { value: "PNC", text: "PNC" },
+  { value: "TD Bank", text: "TD Bank" },
+  { value: "Navy Federal", text: "Navy Federal" }
+]
 
 class Signup extends React.Component {
 
@@ -23,92 +37,73 @@ class Signup extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.createNewUser()
-    this.props.history.push('/profile')
+    const userData = {
+      name: this.state.name,
+      username: this.state.username,
+      password: this.state.password,
+      bank: this.state.bank,
+      account_number: this.state.account_number,
+      monthly_income: this.state.monthly_income
+    }
+    this.props.createNewUser(userData, this.props.history)
   }
 
   render() {
     return (
       <div>
-        <h1>Signup</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>Name</label>
-          <br/>
-          <input
+        <h1>Sign up</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            fluid label='Full Name'
             name="name"
             placeholder="Full Name"
             value={this.state.name}
             onChange={this.handleChange}
           />
-          <br/>
-          <br/>
-          <label>Username</label>
-          <br/>
-          <input
+          <Form.Input
+            fluid label='Username'
             name="username"
             placeholder="Username"
             value={this.state.username}
             onChange={this.handleChange}
           />
-          <br/>
-          <br/>
-          <label>Password</label>
-          <br/>
-          <input
+          <Form.Input
+            fluid label='Password'
             name="password"
             type="password"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <br/>
-          <br/>
-          <label>Bank Institution</label>
-          <br/>
-          <select
+          <Form.Select
+            fluid label='Bank Institution'
+            options={bankOptions}
             name="bank"
-            onChange={this.handleChange}
-          >
-            <option>Please choose your bank</option>
-            <option value="Bank of America">Bank of America</option>
-            <option value="Chase">Chase</option>
-            <option value="Wells Fargo">Wells Fargo</option>
-            <option value="Citi Bank">Citi Bank</option>
-            <option value="Capital One">Capital One</option>
-            <option value="American Express">American Express</option>
-            <option value="U.S. Bank">U.S. Bank</option>
-            <option value="PNC">PNC</option>
-            <option value="TD Bank">TD Bank</option>
-            <option value="Navy Federal">Navy Federal</option>
-          </select>
-          <br/>
-          <br/>
-          <label>Account Number</label>
-          <br/>
-          <input
+            placeholder="Please choose your bank"
+            onChange={this.onChange}
+          />
+          <Form.Input
+            fluid label='Account Number'
             type="password"
             name="account_number"
             placeholder="Account Number"
             value={this.state.account_number}
             onChange={this.handleChange}
           />
-          <br/>
-          <br/>
-          <label>Monthly Income</label>
-          <br/>
-          $<input
+          <Form.Input
+            fluid label='Monthly Income'
             type="number"
             name="monthly_income"
-            placeholder="0.00"
             value={this.state.monthly_income}
             onChange={this.handleChange}
           />
-          <br/>
-          <br/>
-          <button type="submit">
+          <Form.Button type="submit">
             Signup
-          </button>
-        </form>
+          </Form.Button>
+        </Form>
+        <br/>
+        <p>Already have an account? <Link to="/login">Login!</Link></p>
+        <br/>
       </div>
     )
   }

@@ -21,25 +21,14 @@ class App extends React.Component {
       })
       .then(r => r.json())
       .then(userData => {
-        console.log("in app componentDidMount ", userData);
         if (userData.errors) {
           alert(userData.errors)
         } else {
-          console.log("did it login?");
           this.props.loginUser(userData)
         }
       })
     }
   }
-
-  // const transaction = {
-  //   user_id: this.props.currentUser.id,
-  //   category_id: this.state.category_id,
-  //   name: this.state.name,
-  //   date: this.state.date,
-  //   amount: this.state.amount,
-  //   location: this.state.location
-  // }
 
   logout = userId => {
     this.props.logout()
@@ -47,13 +36,12 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <Router>
         <div>
           <Nav currentUser={this.props.currentUser} logout={this.logout}/>
           <Route exact path="/" component={Homepage} />
-          <Route path="/profile" component={AccountContainer} />
+          <Route exact path="/profile" component={AccountContainer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
         </div>

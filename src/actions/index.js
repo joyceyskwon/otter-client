@@ -1,7 +1,6 @@
 import {
   FETCH_TRANSACTIONS,
   NEW_TRANSACTION,
-  FILTER_BY_MONTH,
   FETCH_CATEGORIES,
   POST_NEW_USER,
   SET_CURRENT_USER,
@@ -29,12 +28,12 @@ export const createTransaction = (transactionData) => dispatch => {
     body: JSON.stringify(transactionData)
   })
   .then(r => r.json())
-  .then(transaction =>
-    dispatch({
+  .then(transaction => {
+      dispatch({
       type: NEW_TRANSACTION,
       payload: transaction
     })
-  )
+  })
 }
 
 export const fetchCategories = () => dispatch => {
@@ -48,7 +47,7 @@ export const fetchCategories = () => dispatch => {
   )
 }
 
-export const createNewUser = newUserData => dispatch => {
+export const createNewUser = (newUserData, history) => dispatch => {
   fetch('http://localhost:3000/api/v1/users', {
     method: 'POST',
     headers: {
@@ -59,22 +58,23 @@ export const createNewUser = newUserData => dispatch => {
   })
   .then(r => r.json())
   .then(newUser => {
+    console.log("in createNewUser");
+    console.log(newUser)
     if (newUser.errors) {
       alert(newUser.errors)
+      history.push('/signup')
     } else {
       localStorage.setItem("token", newUser.token)
       dispatch({
         type: POST_NEW_USER,
         payload: newUser
       })
+      history.push('/profile')
     }
   })
 }
 
-export const loginUser = (username, password) => dispatch => {
-  console.log("WE ARE IN LOGINUSER")
-  console.log({username})
-  console.log({password})
+export const loginUser = (username, password, history) => dispatch => {
   fetch('http://localhost:3000/api/v1/login', {
     method: 'POST',
     headers: {
@@ -87,15 +87,16 @@ export const loginUser = (username, password) => dispatch => {
   })
   .then(r => r.json())
   .then(user => {
-    console.log("in loginUser actions ", user.user)
     if (user.errors) {
       alert(user.errors)
+      history.push('/login')
     } else {
       localStorage.setItem("token", user.token)
       dispatch({
         type: SET_CURRENT_USER,
         payload: user.user
       })
+      history.push('/profile')
     }
   })
 }

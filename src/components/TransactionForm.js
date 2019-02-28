@@ -1,16 +1,33 @@
 import React from 'react'
+import { Form } from "semantic-ui-react"
 import { connect } from 'react-redux'
 import { createTransaction } from '../actions/index'
+
+const categoryOptions = [
+  { key: 1 , value: 1, text: "Bills & Utilities" },
+  { key: 2 , value: 2, text: "Dining & Drinks" },
+  { key: 3 , value: 3, text: "Travel" },
+  { key: 4 , value: 4, text: "Groceries" },
+  { key: 5 , value: 5, text: "Shopping" },
+  { key: 6 , value: 6, text: "Commuting & Auto" },
+  { key: 7 , value: 7, text: "Personal Care" },
+  { key: 8 , value: 8, text: "Others" }
+]
 
 class TransactionForm extends React.Component {
 
   state = {
     user_id: 0,
-    category_id: 0,
     name: '',
     date: '',
-    amount: 0.00,
+    amount: 0,
     location: ''
+  }
+
+  handleSelectChange = (e, { value }) => {
+    this.setState({
+      value
+    })
   }
 
   onChange = e => {
@@ -23,7 +40,7 @@ class TransactionForm extends React.Component {
     e.preventDefault()
     const transaction = {
       user_id: this.props.currentUser.id,
-      category_id: this.state.category_id,
+      category_id: this.state.value,
       name: this.state.name,
       date: this.state.date,
       amount: this.state.amount,
@@ -33,73 +50,62 @@ class TransactionForm extends React.Component {
   }
 
   render() {
+    const { value } = this.state
     return (
       <div>
         <h4>Add Transaction</h4>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <label>Title: </label><br/>
-            <input
+        <Form onSubmit={this.onSubmit}>
+          <Form.Group>
+            <Form.Input
+              width={12}
+              fluid label='Title'
               type="text"
               name="name"
               value={this.state.name}
               onChange={this.onChange}
             />
-          </div>
-          <br/>
-          <div>
-            <label>Category: </label><br/>
-            <select
-              name="category_id"
-              onChange={this.onChange}
-            >
-              <option value="1">Bills & Utilities</option>
-              <option value="2">Dining & Drinks</option>
-              <option value="3">Travel</option>
-              <option value="4">Groceries</option>
-              <option value="5">Shopping</option>
-              <option value="6">Commuting & Auto</option>
-              <option value="7">Personal Care</option>
-              <option value="8">Others</option>
-            </select>
-          </div>
-          <br/>
-          <div>
-            <label>Date: </label><br/>
-            <input
+          </Form.Group>
+          <Form.Group>
+            <Form.Select
+              width={6}
+              fluid label='Category'
+              options={categoryOptions}
+              placeholder="Please choose a category"
+              value={value}
+              onChange={this.handleSelectChange}
+            />
+            <Form.Input
+              width={6}
+              fluid label='Date'
               type="date"
               name="date"
               value={this.state.date}
               onChange={this.onChange}
-            />
-          </div>
-          <br/>
-          <div>
-            <label>Amount: </label><br/>
-            $<input
+              />
+            </Form.Group>
+            <Form.Group>
+            <Form.Input
+              width={6}
+              fluid label='Amount'
               type="number"
               name="amount"
-              min="0.01"
-              step="0.01"
-              max="100000.00"
               value={this.state.amount}
               onChange={this.onChange}
-            />
-          </div>
-          <br/>
-          <div>
-            <label>Location: </label><br/>
-            <input
+              />
+            <Form.Input
+              width={6}
+              fluid label='Location'
               type="text"
               name="location"
-              placeholder="Type city name"
+              placeholder="Enter city name"
               value={this.state.location}
               onChange={this.onChange}
-            />
-          </div>
-          <br/>
-          <button type="submit">Submit</button>
-        </form>
+              />
+          </Form.Group>
+          <Form.Button type="submit">
+            Submit
+          </Form.Button>
+        </Form>
       </div>
     )
   }

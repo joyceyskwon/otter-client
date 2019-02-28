@@ -5,7 +5,6 @@ import {
 } from '../actions/types'
 
 const initialState = {
-  currentUser: null, // will use after building AUTH
   items: [],
   item: {}
 }

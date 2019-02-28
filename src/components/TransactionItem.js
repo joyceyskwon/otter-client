@@ -1,12 +1,15 @@
 import React from 'react'
+import { Table } from 'semantic-ui-react'
 
 const TransactionItem = props => {
   return (
-    <tr>
-      <td>{props.name}</td>
-      <td>{props.date}</td>
-      <td>{props.amount}</td>
-    </tr>
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell>{props.name}</Table.Cell>
+        <Table.Cell>{props.date}</Table.Cell>
+        <Table.Cell>{props.amount}</Table.Cell>
+      </Table.Row>
+    </Table.Body>
   )
 }
 

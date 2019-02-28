@@ -1,36 +1,32 @@
 import React from 'react'
 import TransactionItem from './TransactionItem'
+import { Table } from 'semantic-ui-react'
+
 
 class TransactionsList extends React.Component {
 
   render() {
+
+    let sortedTransactions = this.props.transactions.sort(function (a,b){ return new Date(b.date) - new Date(a.date)})
+
     return (
-      <div>
-        <h2>All Transactions</h2>
-          <table>
-            <tbody>
-              <tr>
-                <th>
-                  <h3>Name</h3>
-                </th>
-                <th>
-                  <h3>Date</h3>
-                </th>
-                <th>
-                  <h3>Amount</h3>
-                </th>
-              </tr>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Amount</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
 
-              {this.props.transactions.map(transaction => {
-                return <TransactionItem
-                  key={transaction.id}
-                  {...transaction}
-                />
-              })}
+          {sortedTransactions.map(transaction => {
+            return <TransactionItem
+              key={transaction.id}
+              {...transaction}
+              />
+          })}
 
-            </tbody>
-          </table>
-      </div>
+      </Table>
     )
   }
 
