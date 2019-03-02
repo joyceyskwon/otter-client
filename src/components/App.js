@@ -6,7 +6,7 @@ import Login from './Login'
 import SignUp from './SignUp'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
-import { createNewUser, loginUser, logout } from '../actions/index'
+import { createNewUser, loginUser, logout, tokenLogin } from '../actions/index'
 import './App.css'
 
 class App extends React.Component {
@@ -14,19 +14,7 @@ class App extends React.Component {
   componentDidMount() {
     let token = localStorage.getItem("token")
     if (token) {
-      fetch('http://localhost:3000/api/v1/current_user', {
-        headers: {
-          "Authorization": token
-        }
-      })
-      .then(r => r.json())
-      .then(userData => {
-        if (userData.errors) {
-          alert(userData.errors)
-        } else {
-          this.props.loginUser(userData)
-        }
-      })
+      this.props.tokenLogin(token, this.props.history)
     }
   }
 
@@ -57,4 +45,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { createNewUser, loginUser, logout })(App))
+export default withRouter(connect(mapStateToProps, { createNewUser, loginUser, logout, tokenLogin })(App))

@@ -10,12 +10,12 @@ import {
 export const fetchTransactions = userId => dispatch => {
   fetch(`http://localhost:3000/api/v1/users/${userId}`)
   .then(r => r.json())
-  .then(userData =>
-    dispatch({
+  .then(userData => {
+      dispatch({
       type: FETCH_TRANSACTIONS,
       payload: userData.transactions
     })
-  )
+  })
 }
 
 export const createTransaction = (transactionData) => dispatch => {
@@ -29,7 +29,7 @@ export const createTransaction = (transactionData) => dispatch => {
   })
   .then(r => r.json())
   .then(transaction => {
-      dispatch({
+    dispatch({
       type: NEW_TRANSACTION,
       payload: transaction
     })
@@ -72,6 +72,22 @@ export const createNewUser = (newUserData, history) => dispatch => {
       history.push('/profile')
     }
   })
+}
+
+export const tokenLogin = (token, history) => dispatch => {
+  fetch('http://localhost:3000/api/v1/current_user', {
+    headers: {
+      "Authorization": token
+    }
+  })
+  .then(r => r.json())
+  .then(response => {
+    dispatch({
+      type: SET_CURRENT_USER,
+      payload: response
+    })
+  })
+  history.push('/profile')
 }
 
 export const loginUser = (username, password, history) => dispatch => {

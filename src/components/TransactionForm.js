@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from "semantic-ui-react"
 import { connect } from 'react-redux'
-import { createTransaction } from '../actions/index'
+import { createTransaction, fetchTransactions } from '../actions/index'
 
 const categoryOptions = [
   { key: 1 , value: 1, text: "Bills & Utilities" },
@@ -47,6 +47,13 @@ class TransactionForm extends React.Component {
       location: this.state.location
     }
     this.props.createTransaction(transaction)
+    this.setState({
+      user_id: 0,
+      name: '',
+      date: '',
+      amount: 0,
+      location: ''
+    })
   }
 
   render() {
@@ -102,9 +109,7 @@ class TransactionForm extends React.Component {
               onChange={this.onChange}
               />
           </Form.Group>
-          <Form.Button type="submit">
-            Submit
-          </Form.Button>
+          <Form.Button type="submit">Submit</Form.Button>
         </Form>
       </div>
     )
@@ -112,8 +117,8 @@ class TransactionForm extends React.Component {
 
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser
+const mapStateToProps = ({auth}) => ({
+  currentUser: auth.currentUser
 })
 
-export default connect(mapStateToProps, { createTransaction })(TransactionForm)
+export default connect(mapStateToProps, { createTransaction, fetchTransactions })(TransactionForm)
