@@ -2,7 +2,7 @@ import React from 'react'
 
 const Homepage = props => {
   return (
-    <div>
+    <div className="content-container">
       <h1>Welcome to Otter! This is Homepage</h1>
     </div>
   )

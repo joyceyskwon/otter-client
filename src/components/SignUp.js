@@ -50,7 +50,7 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="content-container">
         <h1>Sign up</h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input

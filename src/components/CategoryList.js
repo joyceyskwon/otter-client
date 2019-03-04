@@ -1,15 +1,25 @@
+// props from AccountContainer.js
+
 import React from 'react'
-import MonthFilter from './MonthFilter'
 import { PieChart, Pie, Sector } from 'recharts'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"]
+
+const today = new Date()
+
 const data = [
   { name: 'Bills & Utilities', value: 400 },
   { name: 'Dining & Drinks', value: 300 },
-  { name: 'Groceries', value: 300 },
-  { name: 'Shopping', value: 200 },
-];
+  { name: 'Travel', value: 300 },
+  { name: 'Groceries', value: 100 },
+  { name: 'Shopping', value: 0 },
+  { name: 'Commuting & Auto', value: 0 },
+  { name: 'Personal Care', value: 0 },
+  { name: 'Others', value: 0 }
+]
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -67,23 +77,78 @@ class CategoryList extends React.Component {
     activeIndex: 0,
   }
 
+  // filters transactions by selected month options
+  filterByMonth = e => {
+    let filteredTransactions = this.props.transactions.filter(transaction => {
+      return parseInt(e.target.value) === this.getMonth(transaction)
+    })
+    this.setState({
+      filteredTransactions
+    })
+  }
+
+
+  // get total spending for that month
+  // filtered transactions need their own component (conditional rendering)
+  // from filtered transactions component, create select by category
+  // filter them by category
+  // calculate the percentages of each category (total amount of a category / total spending that month)
+  // get total spending of that month
+  // get total spending of a category from that month
+  //
+
+  // gets today's month
+  getThisMonth = () => {
+    const today = new Date()
+    const thisMonth = today.getMonth() + 1
+    return thisMonth
+  }
+
+  // gets a single transaction's date's month
   getMonth = transaction => {
-    const date = new Date(transaction.date)
-    const month = date.getMonth() + 1
-    return month
+    let monthInt = parseInt(transaction.date.split("-")[1])
+    return monthInt
+  }
+
+  // FOR MONTHLY FILTER //
+  // select options - today's month
+  thisMonth = () => {
+    return monthNames[today.getMonth()]
+  }
+
+  // select options - last month
+  lastMonth = () => {
+    if (today.getMonth() === 0) {
+      return monthNames[12]
+    } else {
+      return monthNames[today.getMonth() - 1]
+    }
+  }
+
+  // select options - 2 months ago
+  lastLastMonth = () => {
+    if (monthNames[today.getMonth()] === "January") {
+      return monthNames[10]
+    } else if (monthNames[today.getMonth()] === "February") {
+      return monthNames[11]
+    } else {
+      return monthNames[today.getMonth() - 2]
+    }
+  }
+
+  // select options value  - 2 months ago
+  lastLastMonthValue = () => {
+    if (today.getMonth() === 0) {
+      return 11
+    } else if (today.getMonth() === 1) {
+      return 12
+    } else {
+      return today.getMonth() - 1
+    }
   }
 
   getSum = (total, num) => {
     return total + num
-  }
-
-  filterByMonth = (e) => {
-    let filteredTransactions = this.props.transactions.filter(transaction => {
-      return e.target.value === this.getMonth(transaction)
-    })
-    this.setState({
-      filteredTransactions
-    },()=>console.log(this.state.filteredTransactions))
   }
 
   onPieEnter = (data, index) => {
@@ -96,10 +161,28 @@ class CategoryList extends React.Component {
     return (
       <div>
         <h3>Sort by Month</h3>
-        <MonthFilter
-          filterByMonth={this.filterByMonth}
-        />
-        <hr/>
+
+        <select
+          name="date"
+          onChange={e=>this.filterByMonth(e)}
+        >
+          <option
+            value={today.getMonth() + 1}
+          >
+          {this.thisMonth()}
+          </option>
+          <option
+            value={today.getMonth()}
+          >
+          {this.lastMonth()}
+          </option>
+          <option
+            value={this.lastLastMonthValue()}
+          >
+          {this.lastLastMonth()}
+          </option>
+        </select>
+
         Total spending: ${this.state.totalSpending}
         <PieChart width={400} height={400}>
           <Pie
@@ -115,7 +198,6 @@ class CategoryList extends React.Component {
             onMouseEnter={this.onPieEnter}
           />
         </PieChart>
-        <hr/>
         <select
           name="name"
           onChange={this.onChange}
@@ -134,9 +216,9 @@ class CategoryList extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser,
-  transactions: state.auth.currentUser.transactions
+const mapStateToProps = ({ auth }) => ({
+  currentUser: auth.currentUser,
+  transactions: auth.currentUser.transactions
 })
 
 export default withRouter(connect(mapStateToProps)(CategoryList))

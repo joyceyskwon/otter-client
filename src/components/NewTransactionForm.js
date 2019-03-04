@@ -1,3 +1,5 @@
+// props from TransactionsContainer.js
+
 import React from 'react'
 import { Form } from "semantic-ui-react"
 import { connect } from 'react-redux'
@@ -47,6 +49,7 @@ class TransactionForm extends React.Component {
       location: this.state.location
     }
     this.props.createTransaction(transaction)
+    this.props.fetchTransactions(this.props.currentUser.id)
     this.setState({
       user_id: 0,
       name: '',
@@ -117,7 +120,7 @@ class TransactionForm extends React.Component {
 
 }
 
-const mapStateToProps = ({auth}) => ({
+const mapStateToProps = ({ auth }) => ({
   currentUser: auth.currentUser
 })
 

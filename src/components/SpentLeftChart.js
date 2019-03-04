@@ -21,7 +21,7 @@ const renderCustomizedLabel = ({
 const SpentLeftChart = props => {
   return (
     <div>
-      <PieChart width={400} height={400} onMouseEnter={e=>props.onPieEnter(e)}>
+      <PieChart width={400} height={400}>
         <Pie
           data={props.pieData}
           cx={200}

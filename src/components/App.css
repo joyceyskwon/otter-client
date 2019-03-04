@@ -3,6 +3,18 @@
   margin: auto;
 }
 
+.content-container {
+  margin-top: 80px;
+  margin-left: 220px;
+  margin-right: 20px;
+}
+
+.ui.thin.left.sidebar {
+  max-height: 100%;
+  width: 200px;
+  top: 40px;
+}
+
 .selected-link {
   color: red;
 }

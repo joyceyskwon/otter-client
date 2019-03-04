@@ -116,9 +116,7 @@ class TotalBalance extends React.Component {
     return data
   }
 
-  onPieEnter = e => {
-    console.log(e);
-  }
+
 
   render() {
     return (
@@ -129,7 +127,6 @@ class TotalBalance extends React.Component {
         <Icon link name='pie graph'/>
         <SpentLeftChart
           pieData={this.pieData()}
-          onPieEnter={this.onPieEnter()}
         />
 
         <p>Spent: ${this.state.spent}</p>

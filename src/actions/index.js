@@ -7,6 +7,7 @@ import {
   LOGOUT_USER
 } from './types'
 
+// UNUSED - DELETE
 export const fetchTransactions = userId => dispatch => {
   fetch(`http://localhost:3000/api/v1/users/${userId}`)
   .then(r => r.json())
@@ -18,6 +19,7 @@ export const fetchTransactions = userId => dispatch => {
   })
 }
 
+// used in TransactionForm.js
 export const createTransaction = (transactionData) => dispatch => {
   fetch('http://localhost:3000/api/v1/transactions', {
     method: 'POST',
@@ -36,6 +38,20 @@ export const createTransaction = (transactionData) => dispatch => {
   })
 }
 
+// used in EditTransactionForm.js
+// Q: Do I recycle new transaction form???
+export const editTransactions = (transactionData) => dispatch => {
+  fetch(`http://localhost:3000/api/v1/transactions/${transactionData.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(transactionData)
+  })
+}
+
+// UNUSED - DELETE
 export const fetchCategories = () => dispatch => {
   fetch('http://localhost:3000/api/v1/categories')
   .then(r => r.json())
@@ -47,6 +63,7 @@ export const fetchCategories = () => dispatch => {
   )
 }
 
+// used in SignUp.js
 export const createNewUser = (newUserData, history) => dispatch => {
   fetch('http://localhost:3000/api/v1/users', {
     method: 'POST',
@@ -69,11 +86,12 @@ export const createNewUser = (newUserData, history) => dispatch => {
         type: POST_NEW_USER,
         payload: newUser
       })
-      history.push('/profile')
+      history.push('/overview')
     }
   })
 }
 
+// used in App.js, when the page refreshes
 export const tokenLogin = (token, history) => dispatch => {
   fetch('http://localhost:3000/api/v1/current_user', {
     headers: {
@@ -87,9 +105,10 @@ export const tokenLogin = (token, history) => dispatch => {
       payload: response
     })
   })
-  history.push('/profile')
+  history.push('/overview')
 }
 
+// used in Login.js
 export const loginUser = (username, password, history) => dispatch => {
   fetch('http://localhost:3000/api/v1/login', {
     method: 'POST',
@@ -112,14 +131,15 @@ export const loginUser = (username, password, history) => dispatch => {
         type: SET_CURRENT_USER,
         payload: user.user
       })
-      history.push('/profile')
+      history.push('/overview')
     }
   })
 }
 
-export const logout = userId => dispatch => {
-  dispatch({
-    type: LOGOUT_USER
-  })
+// used in App.js
+export const logout = () => {
   localStorage.removeItem("token")
+  return {
+    type: LOGOUT_USER
+  }
 }

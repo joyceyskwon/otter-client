@@ -1,7 +1,9 @@
 import React from 'react'
 import Nav from './Nav'
+import SideNav from './SideNav'
 import Homepage from './Homepage'
 import AccountContainer from './AccountContainer'
+import TransactionsContainer from './TransactionsContainer'
 import Login from './Login'
 import SignUp from './SignUp'
 import { connect } from 'react-redux'
@@ -18,8 +20,8 @@ class App extends React.Component {
     }
   }
 
-  logout = userId => {
-    this.props.logout()
+  logout = () => {
+    this.props.logout(this.props.history)
     this.props.history.push('/login')
   }
 
@@ -27,11 +29,18 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Nav currentUser={this.props.currentUser} logout={this.logout}/>
+          <Nav
+            currentUser={this.props.currentUser}
+            logout={this.logout}
+          />
+          <SideNav
+            currentUser={this.props.currentUser}
+          />
           <Route exact path="/" component={Homepage} />
-          <Route exact path="/profile" component={AccountContainer} />
+          <Route exact path="/overview" component={AccountContainer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/transactions" component={TransactionsContainer} />
         </div>
       </Router>
     )
@@ -39,9 +48,9 @@ class App extends React.Component {
 
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ auth }) => {
   return {
-    currentUser: state.auth.currentUser
+    currentUser: auth.currentUser
   }
 }
 
