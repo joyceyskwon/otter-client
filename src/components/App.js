@@ -13,6 +13,7 @@ import './App.css'
 
 class App extends React.Component {
 
+  // at window refresh, logs in user with token (function from actions/index.js)
   componentDidMount() {
     let token = localStorage.getItem("token")
     if (token) {
@@ -20,9 +21,11 @@ class App extends React.Component {
     }
   }
 
+  // logs out user (actions/index.js)
   logout = () => {
     this.props.logout(this.props.history)
     this.props.history.push('/login')
+    alert("Logging out...")
   }
 
   render() {

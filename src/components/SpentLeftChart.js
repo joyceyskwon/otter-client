@@ -30,8 +30,8 @@ const SpentLeftChart = props => {
           cy={200}
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80}
-          fill="#8884d8"
+          outerRadius={120}
+          fill="#000"
           dataKey="value"
         >
           {

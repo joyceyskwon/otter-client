@@ -1,17 +1,52 @@
 .App {
   width: 90%;
   margin: auto;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .content-container {
+  /* border-style: solid; */
+  float: left;
+  border-radius: 25px;
   margin-top: 80px;
-  margin-left: 220px;
-  margin-right: 20px;
+  margin-left: 210px;
+  margin-right: 10px;
+}
+
+.transactions-container {
+  border-radius: 25px;
+  margin-top: 80px;
+  margin-left: 180px;
+  margin-right: 30px;
+}
+
+/* .sidenav {
+  border-radius: 25px;
+} */
+
+.account-container {
+  background-color: #D1D1D1;
+}
+
+.content-container.totalbalance {
+  background-color: #fff;
+  padding: 40px;
+}
+
+.content-container.categorycontainer {
+  background-color: #FF8042;
+  padding: 40px;
+  color: #fff;
+}
+
+.content-container.categorytimeline {
+  background-color: #fff;
+  padding: 40px;
 }
 
 .ui.thin.left.sidebar {
   max-height: 100%;
-  width: 200px;
+  width: 150px;
   top: 40px;
 }
 

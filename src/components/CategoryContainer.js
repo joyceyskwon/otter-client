@@ -1,10 +1,8 @@
 // props from AccountContainer.js
 
 import React from 'react'
-import MonthFilter from './MonthFilter'
-import CategoryFilter from './CategoryFilter'
 import CategoryChart from './CategoryChart'
-import CategoryAreaChart from './CategoryAreaChart'
+import { Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -19,8 +17,6 @@ class CategoryContainer extends React.Component {
     activeIndex: 0,
     filteredTransactions: [],
     monthlySpent: 0,
-    filteredByCategory: [],
-    categorySpent: 0,
     data1: 0,
     data2: 0,
     data3: 0,
@@ -32,16 +28,20 @@ class CategoryContainer extends React.Component {
   }
 
   // filters transactions by selected month options
-  filterByMonth = e => {
-    let filteredTransactions = this.props.transactions.filter(transaction => {
-      return parseInt(e.target.value) === this.getMonth(transaction)
-    })
+  filterByMonth = (e, { value }) => {
     this.setState({
-      filteredTransactions
-    }, () => this.amountArray())
+      value
+    }, () => {
+      let filteredTransactions = this.props.transactions.filter(transaction => {
+        return parseInt(this.state.value) === this.getMonth(transaction)
+      })
+      this.setState({
+        filteredTransactions
+      }, () => this.amountArray())
+    })
   }
 
-  // pulls out only the amount from filtered transactions by month
+  // saves category id as a key and total monthly spending as a value into an empty object
   amountArray = () => {
     let amount = {}
     let total = 0
@@ -65,6 +65,7 @@ class CategoryContainer extends React.Component {
     }
   }
 
+  // calculates percentages of each category's spending for a selected month
   calculateCategoryPercentage = () => {
     let percentages = {}
     let grandtotal = this.state.monthlySpent
@@ -87,60 +88,20 @@ class CategoryContainer extends React.Component {
     })
   }
 
-  // filters transactions by category id (from monthly filtered transactions)
-  filterByCategory = e => {
-    if(this.state.filteredTransactions.length > 0) {
-      let filteredByCategory = this.state.filteredTransactions.filter(transaction => {
-        return parseInt(e.target.value) === transaction.category_id
-      })
-      this.setState({
-        filteredByCategory
-      }, () => this.amountByCategory())
-    } else {
-      console.log("in filterByCategory, filteredTransactions array is empty!!!")
-    }
-  }
-
-  // pulls out amount from each transaction from category filtered transactions
-  amountByCategory = () => {
-    let amount = {}
-    let total = 0
-    if(this.state.filteredByCategory.length > 0) {
-      this.state.filteredByCategory.forEach(trans => {
-        if(amount[trans.category_id]) {
-          amount[trans.category_id] += parseFloat(trans.amount)
-        } else {
-          amount[trans.category_id] = parseFloat(trans.amount)
-        }
-        total += parseFloat(trans.amount)
-      })
-      this.setState({
-        categorySpent: total
-      }, () => console.log(this.state.categorySpent))
-    } else {
-      this.setState({
-        categorySpent: 0
-      }, () => console.log("no transactions in this category"))
-    }
-  }
-
+  // helper function for filterByMonth - pulls out the month of the transaction
   getMonth = transaction => {
     let monthInt = parseInt(transaction.date.split("-")[1])
     return monthInt
   }
 
-
-  // filtered transactions need their own component (conditional rendering)
-  // from filtered transactions component, create select by category
-  // filter them by category
-  // calculate the percentages of each category (total amount of a category / total spending that month)
-
+  // event handler for category chart
   onPieEnter = (data, index) => {
     this.setState({
       activeIndex: index,
     })
   }
 
+  // changes category chart data depending on the state
   chartData = () => {
     const data = [
       { name: 'Bills & Utilities', value: this.state.data1 },
@@ -153,6 +114,16 @@ class CategoryContainer extends React.Component {
       { name: 'Others', value: this.state.data8 }
     ]
     return data
+  }
+
+  // month filter options
+  renderOptions = () => {
+    const options = [
+      { key: 1, text: this.thisMonth(), value: today.getMonth() + 1 },
+      { key: 2, text: this.lastMonth(), value: today.getMonth() },
+      { key: 3, text: this.lastLastMonth(), value: this.lastLastMonthValue() },
+    ]
+    return options
   }
 
   // select options - today's month
@@ -180,21 +151,28 @@ class CategoryContainer extends React.Component {
     }
   }
 
-  areaChartData = () => {
-    const data = [
-      { name: `${this.lastLastMonth()}`, uv: 4000, pv: 2400, amt: 2400 },
-      { name: `${this.lastMonth()}`, uv: 2000, pv: 1398, amt: 2210 },
-      { name: `${this.thisMonth()}`, uv: 3000, pv: 9800, amt: 2290 }
-    ]
-    return data
+  // select options value  - 2 months ago
+  lastLastMonthValue = () => {
+    if (today.getMonth() === 0) {
+      return 11
+    } else if (today.getMonth() === 1) {
+      return 12
+    } else {
+      return today.getMonth() - 1
+    }
   }
 
   render() {
+    const { value } = this.state
     return (
-      <div>
-        <h3>Sort by Month</h3>
-        <MonthFilter
-          filterByMonth={this.filterByMonth}
+      <div className="content-container categorycontainer">
+        <h1>Sort by Month</h1>
+        <Dropdown
+          onChange={this.filterByMonth}
+          options={this.renderOptions()}
+          placeholder='Choose an option'
+          selection
+          value={value}
         />
         Total spending: ${this.state.monthlySpent}
 
@@ -202,14 +180,6 @@ class CategoryContainer extends React.Component {
           activeIndex={this.state.activeIndex}
           data={this.chartData()}
           onPieEnter={this.onPieEnter}
-        />
-
-        <CategoryAreaChart
-          data={this.areaChartData()}
-        />
-
-        <CategoryFilter
-          filterByCategory={this.filterByCategory}
         />
       </div>
     )

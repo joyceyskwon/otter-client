@@ -98,7 +98,7 @@ class TotalBalance extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="content-container totalbalance">
         <h1>{this.changeMonthToString()}</h1>
         <p>Income: ${this.props.currentUser.monthly_income}</p>
         <Icon link name='area graph'/>
@@ -107,7 +107,7 @@ class TotalBalance extends React.Component {
           pieData={this.pieData()}
         />
 
-      <p>Spent: ${this.state.spent}</p>
+        <p>Spent: ${this.state.spent}</p>
         <p>Left: ${this.state.left}</p>
       </div>
     )

@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 class TransactionsContainer extends React.Component {
   render() {
     return (
-      <div className="content-container">
+      <div className="transactions-container">
         <NewTransactionForm
           currentUser={this.props.currentUser}
         />

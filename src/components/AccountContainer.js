@@ -2,32 +2,34 @@ import React from 'react'
 import TotalBalance from './TotalBalance'
 import Homepage from './Homepage'
 import CategoryContainer from './CategoryContainer'
+import CategoryTimelineContainer from './CategoryTimelineContainer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchCurrentWeather } from '../actions/index'
-import { Grid, Rail } from 'semantic-ui-react'
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 class AccountContainer extends React.Component {
 
+  // if the user is logged in, view AccountContainer.js. If not, show homepage
   render() {
     if (this.props.currentUser) {
       return (
-        <div className="content-container">
-          <Grid centered columns={3}>
-            <Grid.Column>
-              <Rail position='left'>
-                <TotalBalance
-                  currentUser={this.props.currentUser}
-                />
-              </Rail>
-
-              <Rail position='right'>
-                <CategoryContainer
-                  transactions={this.props.currentUser.transactions}
-                />
-              </Rail>
-            </Grid.Column>
-          </Grid>
+        <div className="account-container">
+          <ResponsiveMasonry
+                columnsCountBreakPoints={{350: 1, 750: 2}}
+          >
+            <Masonry columnsCount={2}>
+              <TotalBalance
+                currentUser={this.props.currentUser}
+              />
+              <CategoryContainer
+                transactions={this.props.currentUser.transactions}
+              />
+              <CategoryTimelineContainer
+                transactions={this.props.currentUser.transactions}
+              />
+            </Masonry>
+          </ResponsiveMasonry>
         </div>
 
     )} else {

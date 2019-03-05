@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const SideNav = props => {
   return (
-    <Sidebar as={Menu} animation='overlay' icon='labeled' vertical visible width='thin'>
+    <Sidebar className="sidenav" as={Menu} animation='overlay' icon='labeled' vertical visible width='thin'>
       <Menu.Item>
         <Link to="/overview" className="item"><Icon name='home' />Overview</Link>
       </Menu.Item>

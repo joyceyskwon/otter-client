@@ -42,7 +42,7 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${name}: ${parseInt(value*100)}%`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#fff">{`${name}: ${parseInt(value*100)}%`}</text>
     </g>
   )
 }
@@ -56,9 +56,9 @@ const CategoryChart = props => {
         data={props.data}
         cx={200}
         cy={200}
-        innerRadius={60}
-        outerRadius={80}
-        fill="#FF8042"
+        innerRadius={70}
+        outerRadius={100}
+        fill="#0088FE"
         dataKey="value"
         onMouseEnter={props.onPieEnter}
       />
