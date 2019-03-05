@@ -1,28 +1,8 @@
+// props from AccountContainer.js
+
 import React from 'react'
 import SpentLeftChart from './SpentLeftChart'
 import { Icon } from 'semantic-ui-react'
-
-// const data = [
-//   { name: 'Left', value: 400 },
-//   { name: 'Spent', value: 800 }
-// ]
-//
-// const colors = ['#0088FE', '#FF8042']
-//
-// const RADIAN = Math.PI / 180;
-// const renderCustomizedLabel = ({
-//   cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-// }) => {
-//   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
-//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-//
-//   return (
-//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-//     {`${(percent * 100).toFixed(0)}%`}
-//     </text>
-//   )
-// }
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
@@ -83,7 +63,7 @@ class TotalBalance extends React.Component {
     } else {
       this.setState({
         leftPercent: 100 - this.state.spentPercent
-      }, () => console.log("spent%", this.state.spentPercent, "left%", this.state.leftPercent))
+      })
     }
   }
 
@@ -110,13 +90,11 @@ class TotalBalance extends React.Component {
 
   pieData = () => {
     const data = [
-        { name: 'Left', value: 400 },
-        { name: 'Spent', value: 800 }
+        { name: 'Left', value: this.state.spentPercent },
+        { name: 'Spent', value: this.state.leftPercent }
       ]
     return data
   }
-
-
 
   render() {
     return (
@@ -129,7 +107,7 @@ class TotalBalance extends React.Component {
           pieData={this.pieData()}
         />
 
-        <p>Spent: ${this.state.spent}</p>
+      <p>Spent: ${this.state.spent}</p>
         <p>Left: ${this.state.left}</p>
       </div>
     )

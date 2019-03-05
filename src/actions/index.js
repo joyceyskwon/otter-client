@@ -4,15 +4,44 @@ import {
   FETCH_CATEGORIES,
   POST_NEW_USER,
   SET_CURRENT_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  FETCH_WEATHER
 } from './types'
+
+// Was trying to get current user's location
+// export const getLocation = () => {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition)
+//   } else {
+//     console.log("Geolocation is not supported by this browser.")
+//   }
+// }
+//
+// export const showPosition = position => {
+//   let latlon =  "lat=" + position.coords.latitude +
+//   "&lon=" + position.coords.longitude
+//   return latlon
+// }
+
+// fetches current weather userData
+// UNUSED - will use later for homepage
+export const fetchCurrentWeather = () => dispatch => {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=40.7039&lon=74.0139&appid=d6a40e6f59b078301c32fa838e7d5760`)
+  .then(r => r.json())
+  .then(weatherData => {
+    dispatch({
+      type: FETCH_WEATHER,
+      payload: weatherData.weather[0]
+    })
+  })
+}
 
 // UNUSED - DELETE
 export const fetchTransactions = userId => dispatch => {
   fetch(`http://localhost:3000/api/v1/users/${userId}`)
   .then(r => r.json())
   .then(userData => {
-      dispatch({
+    dispatch({
       type: FETCH_TRANSACTIONS,
       payload: userData.transactions
     })

@@ -1,3 +1,5 @@
+// props from TotalBalance.js
+
 import React from 'react'
 import { PieChart, Pie, Cell } from 'recharts'
 
