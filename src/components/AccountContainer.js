@@ -16,9 +16,9 @@ class AccountContainer extends React.Component {
       return (
         <div className="account-container">
           <ResponsiveMasonry
-                columnsCountBreakPoints={{350: 1, 750: 2}}
+                columnsCountBreakPoints={{350: 1}}
           >
-            <Masonry columnsCount={2}>
+            <Masonry columnsCount={1}>
               <TotalBalance
                 currentUser={this.props.currentUser}
               />
@@ -33,7 +33,7 @@ class AccountContainer extends React.Component {
         </div>
 
     )} else {
-      return(
+      return (
         <Homepage
           currentWeather={this.props.fetchCurrentWeather()}
         />

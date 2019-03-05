@@ -1,22 +1,29 @@
 import React from 'react'
 import NewTransactionForm from './NewTransactionForm'
+import Homepage from './Homepage'
 import TransactionsList from './TransactionsList'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 class TransactionsContainer extends React.Component {
   render() {
-    return (
-      <div className="transactions-container">
-        <NewTransactionForm
-          currentUser={this.props.currentUser}
-        />
-        <TransactionsList
-          currentUser={this.props.currentUser}
-          transactions={this.props.currentUser.transactions}
-        />
-      </div>
-    )
+    if(this.props.currentUser) {
+      return (
+        <div className="transactions-container">
+          <NewTransactionForm
+            currentUser={this.props.currentUser}
+            />
+          <TransactionsList
+            currentUser={this.props.currentUser}
+            transactions={this.props.currentUser.transactions}
+            />
+        </div>
+      )
+    } else {
+      return (
+        <Homepage />
+      )
+    }
   }
 }
 

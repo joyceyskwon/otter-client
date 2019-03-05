@@ -4,6 +4,7 @@ import SideNav from './SideNav'
 import Homepage from './Homepage'
 import AccountContainer from './AccountContainer'
 import TransactionsContainer from './TransactionsContainer'
+import ProfileContainer from './ProfileContainer'
 import Login from './Login'
 import SignUp from './SignUp'
 import { connect } from 'react-redux'
@@ -44,6 +45,7 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/transactions" component={TransactionsContainer} />
+          <Route exact path="/profile" component={ProfileContainer} />
         </div>
       </Router>
     )

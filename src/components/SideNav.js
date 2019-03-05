@@ -11,9 +11,8 @@ const SideNav = props => {
       <Menu.Item>
         <Link to="/transactions" className="item"><Icon name='list' />Transactions</Link>
       </Menu.Item>
-      <Menu.Item as='a'>
-        <Icon name='user' />
-        Profile
+      <Menu.Item>
+        <Link to="/profile" className="item"><Icon name='user' />Profile</Link>
       </Menu.Item>
     </Sidebar>
   )

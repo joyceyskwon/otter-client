@@ -2,7 +2,7 @@
 
 import React from 'react'
 import SpentLeftChart from './SpentLeftChart'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Divider, Statistic } from 'semantic-ui-react'
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
@@ -100,7 +100,11 @@ class TotalBalance extends React.Component {
     return (
       <div className="content-container totalbalance">
         <h1>{this.changeMonthToString()}</h1>
-        <p>Income: ${this.props.currentUser.monthly_income}</p>
+        <Statistic horizontal>
+          <Statistic.Label>Income</Statistic.Label>
+          <Statistic.Value>${this.props.currentUser.monthly_income}</Statistic.Value>
+        </Statistic>
+        <Divider />
         <Icon link name='area graph'/>
         <Icon link name='pie graph'/>
         <SpentLeftChart

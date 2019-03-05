@@ -4,6 +4,10 @@
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.modal {
+  float: right;
+}
+
 .content-container {
   /* border-style: solid; */
   float: left;

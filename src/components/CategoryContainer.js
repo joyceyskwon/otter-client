@@ -17,7 +17,7 @@ class CategoryContainer extends React.Component {
     activeIndex: 0,
     filteredTransactions: [],
     monthlySpent: 0,
-    data1: 0,
+    data1: 1,
     data2: 0,
     data3: 0,
     data4: 0,

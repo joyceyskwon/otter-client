@@ -1,7 +1,7 @@
 // props from TransactionsContainer.js
 
 import React from 'react'
-import { Form } from "semantic-ui-react"
+import { Form, Modal, Button } from "semantic-ui-react"
 import { connect } from 'react-redux'
 import { createTransaction, fetchTransactions } from '../actions/index'
 
@@ -62,59 +62,63 @@ class TransactionForm extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div>
-        <h4>Add Transaction</h4>
-        <Form onSubmit={this.onSubmit}>
-          <Form.Group>
-            <Form.Input
-              width={12}
-              fluid label='Title'
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.onChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Select
-              width={6}
-              fluid label='Category'
-              options={categoryOptions}
-              placeholder="Please choose a category"
-              value={value}
-              onChange={this.handleSelectChange}
-            />
-            <Form.Input
-              width={6}
-              fluid label='Date'
-              type="date"
-              name="date"
-              value={this.state.date}
-              onChange={this.onChange}
+      <Modal trigger={<Button floated='right'>New Transaction</Button>}>
+        <Modal.Header>New Transaction</Modal.Header>
+        <Modal.Content>
+          <Form onSubmit={this.onSubmit}>
+            <Form.Group>
+              <Form.Input
+                width={12}
+                fluid label='Title'
+                type="text"
+                name="name"
+                value={this.state.name}
+                onChange={this.onChange}
               />
             </Form.Group>
             <Form.Group>
-            <Form.Input
-              width={6}
-              fluid label='Amount'
-              type="number"
-              name="amount"
-              value={this.state.amount}
-              onChange={this.onChange}
+              <Form.Select
+                width={6}
+                fluid label='Category'
+                options={categoryOptions}
+                placeholder="Please choose a category"
+                value={value}
+                onChange={this.handleSelectChange}
               />
-            <Form.Input
-              width={6}
-              fluid label='Location'
-              type="text"
-              name="location"
-              placeholder="Enter city name"
-              value={this.state.location}
-              onChange={this.onChange}
-              />
-          </Form.Group>
-          <Form.Button type="submit">Submit</Form.Button>
-        </Form>
-      </div>
+              <Form.Input
+                width={6}
+                fluid label='Date'
+                type="date"
+                name="date"
+                value={this.state.date}
+                onChange={this.onChange}
+                />
+              </Form.Group>
+              <Form.Group>
+              <Form.Input
+                width={6}
+                fluid label='Amount'
+                type="number"
+                name="amount"
+                value={this.state.amount}
+                onChange={this.onChange}
+                />
+              <Form.Input
+                width={6}
+                fluid label='Location'
+                type="text"
+                name="location"
+                placeholder="Enter city name"
+                value={this.state.location}
+                onChange={this.onChange}
+                />
+            </Form.Group>
+            <Modal.Actions>
+              <Form.Button type="submit">Submit</Form.Button>
+            </Modal.Actions>
+          </Form>
+        </Modal.Content>
+      </Modal>
     )
   }
 
