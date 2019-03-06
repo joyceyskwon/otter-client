@@ -12,11 +12,11 @@ class TransactionsContainer extends React.Component {
         <div className="transactions-container">
           <NewTransactionForm
             currentUser={this.props.currentUser}
-            />
+          />
           <TransactionsList
             currentUser={this.props.currentUser}
             transactions={this.props.currentUser.transactions}
-            />
+          />
         </div>
       )
     } else {
@@ -29,7 +29,8 @@ class TransactionsContainer extends React.Component {
 
 const mapStateToProps = ({ auth, transactions }) => ({
   currentUser: auth.currentUser,
-  newTransaction: transactions.item
+  newTransaction: transactions.items.last
+  // transactions: transactions.items
 })
 
 export default withRouter(connect(mapStateToProps)(TransactionsContainer))

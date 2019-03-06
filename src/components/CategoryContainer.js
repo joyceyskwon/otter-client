@@ -53,7 +53,7 @@ class CategoryContainer extends React.Component {
           amount[trans.category_id] = parseFloat(trans.amount)
         }
         this.setState()
-        total += parseFloat(trans.amount)
+        total += Math.round(parseFloat(trans.amount)*100/100)
       })
       this.setState({
         monthlySpent: total
@@ -168,13 +168,14 @@ class CategoryContainer extends React.Component {
       <div className="content-container categorycontainer">
         <h1>Sort by Month</h1>
         <Dropdown
+          className={"filter-dropdown"}
           onChange={this.filterByMonth}
           options={this.renderOptions()}
           placeholder='Choose an option'
           selection
           value={value}
-        />
-        Total spending: ${this.state.monthlySpent}
+          />
+        <h3>Total spending: ${this.state.monthlySpent}</h3>
 
         <CategoryChart
           activeIndex={this.state.activeIndex}

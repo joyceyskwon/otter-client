@@ -19,6 +19,7 @@ export default function(state = initialState, action) {
     case NEW_TRANSACTION:
       return {
         ...state,
+        items: [...state.items, action.payload],
         item: action.payload
       }
     case FILTER_BY_MONTH:

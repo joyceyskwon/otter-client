@@ -5,7 +5,8 @@ import {
   POST_NEW_USER,
   SET_CURRENT_USER,
   LOGOUT_USER,
-  FETCH_WEATHER
+  FETCH_WEATHER,
+  API_ROOT
 } from './types'
 
 // Was trying to get current user's location
@@ -38,7 +39,7 @@ export const fetchCurrentWeather = () => dispatch => {
 
 // UNUSED - DELETE
 export const fetchTransactions = userId => dispatch => {
-  fetch(`http://localhost:3000/api/v1/users/${userId}`)
+  fetch(`${API_ROOT}/api/v1/users/${userId}`)
   .then(r => r.json())
   .then(userData => {
     dispatch({
@@ -50,7 +51,7 @@ export const fetchTransactions = userId => dispatch => {
 
 // used in TransactionForm.js
 export const createTransaction = (transactionData) => dispatch => {
-  fetch('http://localhost:3000/api/v1/transactions', {
+  fetch(`${API_ROOT}/api/v1/transactions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -60,6 +61,7 @@ export const createTransaction = (transactionData) => dispatch => {
   })
   .then(r => r.json())
   .then(transaction => {
+    // debugger
     dispatch({
       type: NEW_TRANSACTION,
       payload: transaction
@@ -68,9 +70,8 @@ export const createTransaction = (transactionData) => dispatch => {
 }
 
 // used in EditTransactionForm.js
-// Q: Do I recycle new transaction form???
 export const editTransactions = (transactionData) => dispatch => {
-  fetch(`http://localhost:3000/api/v1/transactions/${transactionData.id}`, {
+  fetch(`${API_ROOT}/api/v1/transactions/${transactionData.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -78,11 +79,13 @@ export const editTransactions = (transactionData) => dispatch => {
     },
     body: JSON.stringify(transactionData)
   })
+  .then(r => r.json())
+  .then(data => console.log(data))
 }
 
 // UNUSED - DELETE
 export const fetchCategories = () => dispatch => {
-  fetch('http://localhost:3000/api/v1/categories')
+  fetch(`${API_ROOT}/api/v1/categories`)
   .then(r => r.json())
   .then(categories =>
     dispatch({
@@ -94,7 +97,7 @@ export const fetchCategories = () => dispatch => {
 
 // used in SignUp.js
 export const createNewUser = (newUserData, history) => dispatch => {
-  fetch('http://localhost:3000/api/v1/users', {
+  fetch(`${API_ROOT}/api/v1/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -122,7 +125,7 @@ export const createNewUser = (newUserData, history) => dispatch => {
 
 // used in App.js, when the page refreshes
 export const tokenLogin = (token, history) => dispatch => {
-  fetch('http://localhost:3000/api/v1/current_user', {
+  fetch(`${API_ROOT}/api/v1/current_user`, {
     headers: {
       "Authorization": token
     }
@@ -139,7 +142,7 @@ export const tokenLogin = (token, history) => dispatch => {
 
 // used in Login.js
 export const loginUser = (username, password, history) => dispatch => {
-  fetch('http://localhost:3000/api/v1/login', {
+  fetch(`${API_ROOT}/api/v1/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

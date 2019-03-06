@@ -1,44 +1,50 @@
+// props from TransactionsContainer.js
+
 import React from 'react'
 import TransactionItem from './TransactionItem'
 import { Table, Dropdown } from 'semantic-ui-react'
 
 
 class TransactionsList extends React.Component {
+  //
+  // state = {
+  //   filteredTransactions: this.props.transactions
+  // }
 
   state = {
-    filteredTransactions: this.props.transactions
+    value: ""
   }
 
   filterLowtoHigh = () => {
-    this.setState({
-      filteredTransactions: this.props.transactions.sort(function (first, second) { return parseFloat(first.amount) - parseFloat(second.amount)})
-    })
+return  this.props.transactions.sort(function (first, second) { return parseFloat(first.amount) - parseFloat(second.amount)})
   }
 
   filterHightoLow = () => {
-    this.setState({
-      filteredTransactions: this.props.transactions.sort(function (first, second) { return parseFloat(second.amount) - parseFloat(first.amount)})
-    })
+return  this.props.transactions.sort(function (first, second) { return parseFloat(second.amount) - parseFloat(first.amount)})
   }
 
   filterByMostRecent = () => {
-    this.setState({
-      filteredTransactions: this.props.transactions.sort(function (first, second) { return new Date(second.date) - new Date(first.date)})
-    })
+
+       return this.props.transactions.sort(function (first, second) { return new Date(second.date) - new Date(first.date)})
+
   }
 
   handleFilter = (e, { value }) => {
     this.setState({
       value
-    }, () => {
-      if(this.state.value === "recent") {
-        return this.filterByMostRecent()
-      } else if(this.state.value === "high") {
-        return this.filterHightoLow()
-      } else {
-        return this.filterLowtoHigh()
-      }
     })
+  }
+
+  applyFilter = () => {
+    if(this.state.value === "recent") {
+      return this.filterByMostRecent()
+    } else if(this.state.value === "high") {
+      return this.filterHightoLow()
+    } else if(this.state.value === "low"){
+      return this.filterLowtoHigh()
+    } else {
+      return this.props.transactions
+    }
   }
 
   renderOptions = () => {
@@ -63,17 +69,18 @@ class TransactionsList extends React.Component {
         />
         <h2>All Transactions</h2>
         <Table celled>
-          <Table.Header>
+          <Table.Header className={"table-header"}>
             <Table.Row>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Date</Table.HeaderCell>
               <Table.HeaderCell>Amount</Table.HeaderCell>
+              <Table.HeaderCell>Edit</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
             {
-              this.state.filteredTransactions.length > 0 ?
-              this.state.filteredTransactions.map(transaction => {
+              this.props.transactions.length > 0 ?
+              this.applyFilter().map(transaction => {
               return <TransactionItem
                 key={transaction.id}
                 {...transaction}

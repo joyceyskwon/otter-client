@@ -6,6 +6,7 @@ import CategoryTimelineContainer from './CategoryTimelineContainer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchCurrentWeather } from '../actions/index'
+import { Responsive } from 'semantic-ui-react'
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
 class AccountContainer extends React.Component {

@@ -7,6 +7,7 @@ import TransactionsContainer from './TransactionsContainer'
 import ProfileContainer from './ProfileContainer'
 import Login from './Login'
 import SignUp from './SignUp'
+import Footer from './Footer'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { createNewUser, loginUser, logout, tokenLogin } from '../actions/index'
@@ -46,6 +47,7 @@ class App extends React.Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/transactions" component={TransactionsContainer} />
           <Route exact path="/profile" component={ProfileContainer} />
+          <Footer />
         </div>
       </Router>
     )

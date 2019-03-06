@@ -2,7 +2,7 @@
 
 import React from 'react'
 import SpentLeftChart from './SpentLeftChart'
-import { Icon, Divider, Statistic } from 'semantic-ui-react'
+import { Icon, Divider } from 'semantic-ui-react'
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
@@ -22,6 +22,7 @@ class TotalBalance extends React.Component {
     this.filterThisMonthSpending()
   }
 
+  // filter transactions created in today's month
   filterThisMonthSpending = () => {
     let month = this.getThisMonth()
     let filteredTransactions = this.props.currentUser.transactions.filter(transaction => {
@@ -32,24 +33,32 @@ class TotalBalance extends React.Component {
     }, () => this.amountArray())
   }
 
+  // add up total amount spent this month
   amountArray = () => {
-    this.setState({
-      amountArray: this.state.filteredTransactions.map(transaction=>parseInt(transaction.amount))
-    }, () => this.totalSpent())
+    let spent = 0
+    if(this.state.filteredTransactions.length > 0) {
+      this.state.filteredTransactions.forEach(trans => {
+        spent += Math.round(parseFloat(trans.amount)*100/100)
+      })
+      this.setState({ spent }, () => this.totalLeft())
+    } else {
+      this.setState({
+        spent: 0,
+        left: 0,
+        spentPercent: 0,
+        leftPercent: 100
+      })
+    }
   }
 
-  totalSpent = () => {
-    this.setState({
-      spent: this.state.amountArray.reduce(this.getSum)
-    }, () => this.totalLeft())
-  }
-
+  // subtracts total spent from monthly income
   totalLeft = () => {
     this.setState({
       left: this.props.currentUser.monthly_income - this.state.spent
     }, () => this.spentPercent())
   }
 
+  // calculates percentage of total spent
   spentPercent = () => {
     let spentPercent = Math.floor((this.state.spent/this.props.currentUser.monthly_income)*100)
     this.setState({
@@ -57,6 +66,7 @@ class TotalBalance extends React.Component {
     }, () => this.leftPercent())
   }
 
+  // calculates percentage of total money left
   leftPercent = () => {
     if(this.state.spentPercent === 0) {
       return this.state.leftPercent
@@ -67,11 +77,13 @@ class TotalBalance extends React.Component {
     }
   }
 
+  // pulls out month from a single transaction
   getMonth = transaction => {
     let monthInt = parseInt(transaction.date.split("-")[1])
     return monthInt
   }
 
+  // get today's month
   getThisMonth = () => {
     const today = new Date()
     const thisMonth = today.getMonth() + 1
@@ -84,10 +96,7 @@ class TotalBalance extends React.Component {
     return monthString
   }
 
-  getSum = (total, num) => {
-    return total + num
-  }
-
+  // data for the pie chart
   pieData = () => {
     const data = [
         { name: 'Left', value: this.state.spentPercent },
@@ -100,10 +109,7 @@ class TotalBalance extends React.Component {
     return (
       <div className="content-container totalbalance">
         <h1>{this.changeMonthToString()}</h1>
-        <Statistic horizontal>
-          <Statistic.Label>Income</Statistic.Label>
-          <Statistic.Value>${this.props.currentUser.monthly_income}</Statistic.Value>
-        </Statistic>
+        <h2>Income: ${this.props.currentUser.monthly_income}</h2>
         <Divider />
         <Icon link name='area graph'/>
         <Icon link name='pie graph'/>
@@ -111,8 +117,8 @@ class TotalBalance extends React.Component {
           pieData={this.pieData()}
         />
 
-        <p>Spent: ${this.state.spent}</p>
-        <p>Left: ${this.state.left}</p>
+      <h4 className={"left-text"}>Spent: ${this.state.spent}</h4>
+      <h4 className={"right-text"}>Left: ${this.state.left}</h4>
       </div>
     )
   }

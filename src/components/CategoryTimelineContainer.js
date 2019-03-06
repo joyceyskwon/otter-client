@@ -16,7 +16,10 @@ class CategoryTimelineContainer extends React.Component {
   state = {
     filteredTransactions: [],
     filteredByCategory: [],
-    categorySpent: 0
+    categorySpent: 0,
+    thisMonth: 0,
+    lastMonth: 0,
+    lastLastMonth: 0
   }
 
   // helper method for filterByCategory - gets month for each transaction
@@ -98,12 +101,12 @@ class CategoryTimelineContainer extends React.Component {
     }
   }
 
-  // dynamically show data depending on state
+  // dynamically shows data depending on state
   areaChartData = () => {
     const data = [
-      { name: `${this.lastLastMonth()}`, uv: 4000, pv: 2400, amt: 2400 },
-      { name: `${this.lastMonth()}`, uv: 2000, pv: 1398, amt: 2210 },
-      { name: `${this.thisMonth()}`, uv: 3000, pv: 9800, amt: 2290 }
+      { name: `${this.lastLastMonth()}`, uv: this.state.thisMonth },
+      { name: `${this.lastMonth()}`, uv: this.state.lastMonth },
+      { name: `${this.thisMonth()}`, uv: this.state.lastLastMonth }
     ]
     return data
   }

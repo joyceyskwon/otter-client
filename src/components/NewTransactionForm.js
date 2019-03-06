@@ -49,7 +49,7 @@ class TransactionForm extends React.Component {
       location: this.state.location
     }
     this.props.createTransaction(transaction)
-    this.props.fetchTransactions(this.props.currentUser.id)
+    // this.props.fetchTransactions(this.props.currentUser.id)
     this.setState({
       user_id: 0,
       name: '',
@@ -62,7 +62,7 @@ class TransactionForm extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <Modal trigger={<Button floated='right'>New Transaction</Button>}>
+      <Modal className={"modal"} trigger={<Button className={"new-trans-button"} floated='right'>New Transaction</Button>}>
         <Modal.Header>New Transaction</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.onSubmit}>
@@ -114,7 +114,7 @@ class TransactionForm extends React.Component {
                 />
             </Form.Group>
             <Modal.Actions>
-              <Form.Button type="submit">Submit</Form.Button>
+              <Form.Button className={"new-trans-submit-button"} type="submit">Submit</Form.Button>
             </Modal.Actions>
           </Form>
         </Modal.Content>

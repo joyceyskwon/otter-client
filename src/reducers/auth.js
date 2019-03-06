@@ -1,7 +1,8 @@
 import {
   POST_NEW_USER,
   SET_CURRENT_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  NEW_TRANSACTION
 } from '../actions/types'
 
 const initialState = {
@@ -14,6 +15,15 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload.user
+      }
+    case NEW_TRANSACTION:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser, transactions: [
+            ...state.currentUser.transactions, action.payload
+          ],
+        }
       }
     case SET_CURRENT_USER:
       return {
