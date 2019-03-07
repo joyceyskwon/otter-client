@@ -17,8 +17,11 @@ class CategoryTimelineContainer extends React.Component {
     filteredTransactions: [],
     filteredByCategory: [],
     categorySpent: 0,
-    thisMonth: 0,
+    filteredLastMonth: [],
+    filteredByLastMonthCategory: [],
     lastMonth: 0,
+    filteredLastLastMonth: [],
+    filteredByLastLastMonthCategory: [],
     lastLastMonth: 0
   }
 
@@ -31,24 +34,50 @@ class CategoryTimelineContainer extends React.Component {
   // filters transactions by selected month options
   // filters transactions by category id (from monthly filtered transactions)
   filterByCategory = (e, { value }) => {
-    let filteredTransactions = this.props.transactions.filter(transaction => {
-      return today.getMonth() + 1 === this.getMonth(transaction)
+    let filteredTransactions = this.props.transactions.filter(trans => {
+      return today.getMonth() + 1 === this.getMonth(trans)
     })
-    this.setState({
-      filteredTransactions
+    this.setState({ filteredTransactions })
+
+    let filteredLastMonth = this.props.transactions.filter(trans => {
+      return today.getMonth() === this.getMonth(trans)
     })
-    this.setState({
-      value
-    }, () => {
+    this.setState({ filteredLastMonth })
+
+    let filteredLastLastMonth = this.props.transactions.filter(trans => {
+      return today.getMonth() - 1 === this.getMonth(trans)
+    })
+    this.setState({ filteredLastLastMonth })
+
+    this.setState({ value }, () => {
       if(this.state.filteredTransactions.length > 0) {
-        let filteredByCategory = this.state.filteredTransactions.filter(transaction => {
-          return this.state.value === transaction.category_id
+        let filteredByCategory = this.state.filteredTransactions.filter(trans => {
+          return this.state.value === trans.category_id
         })
-        this.setState({
-          filteredByCategory
-        }, () => this.amountByCategory())
+        this.setState({ filteredByCategory }, () => this.amountByCategory())
+      } else if(this.state.filteredLastMonth.length > 0) {
+        let filteredByLastMonthCategory = this.state.filteredLastMonth.filter(trans => {
+          return this.state.value === trans.category_id
+        })
+        this.setState({ filteredByLastMonthCategory }, () => this.amountByLastMonthCategory())
+      } else if(this.state.filteredLastLastMonth.length > 0) {
+        let filteredByLastLastMonthCategory = this.state.filteredLastLastMonth.filter(trans => {
+          return this.state.value === trans.category_id
+        })
+        this.setState({ filteredByLastLastMonthCategory }, () => this.amountByLastLastMonthCategory())
       } else {
         console.log("in filterByCategory, filteredTransactions array is empty!!!")
+      }
+    })
+
+    this.setState({ value }, () => {
+      if(this.state.filteredLastMonth.length > 0) {
+        let filteredByLastMonthCategory = this.state.filteredLastMonth.filter(trans => {
+          return this.state.value === trans.category_id
+        })
+        this.setState({ filteredByLastMonthCategory }, () => this.amountByLastMonthCategory())
+      } else {
+        console.log("in filterByCategory, filteredByLastMonthCategory array is empty!!!")
       }
     })
   }
@@ -64,15 +93,47 @@ class CategoryTimelineContainer extends React.Component {
         } else {
           amount[trans.category_id] = parseFloat(trans.amount)
         }
-        total += parseFloat(trans.amount)
+        total += Math.round(parseFloat(trans.amount)*100/100)
       })
-      this.setState({
-        categorySpent: total
-      }, () => console.log(this.state.categorySpent))
+      this.setState({ categorySpent: total })
     } else {
-      this.setState({
-        categorySpent: 0
-      }, () => console.log("no transactions in this category"))
+      this.setState({ categorySpent: 0 })
+    }
+  }
+
+  amountByLastMonthCategory = () => {
+    let amount = {}
+    let total = 0
+    if(this.state.filteredByLastMonthCategory.length > 0) {
+      this.state.filteredByLastMonthCategory.forEach(trans => {
+        if(amount[trans.category_id]) {
+          amount[trans.category_id] += parseFloat(trans.amount)
+        } else {
+          amount[trans.category_id] = parseFloat(trans.amount)
+        }
+        total += Math.round(parseFloat(trans.amount)*100/100)
+      })
+      this.setState({ lastMonth: total })
+    } else {
+      this.setState({ lastMonth: 0 })
+    }
+  }
+
+  amountByLastLastMonthCategory = () => {
+    let amount = {}
+    let total = 0
+    if(this.state.filteredByLastMonthCategory.length > 0) {
+      this.state.filteredByLastMonthCategory.forEach(trans => {
+        if(amount[trans.category_id]) {
+          amount[trans.category_id] += parseFloat(trans.amount)
+        } else {
+          amount[trans.category_id] = parseFloat(trans.amount)
+        }
+        total += Math.round(parseFloat(trans.amount)*100/100)
+      })
+      this.setState({ lastLastMonth: total })
+    } else {
+      this.setState({ lastLastMonth: 0 })
     }
   }
 
@@ -104,9 +165,9 @@ class CategoryTimelineContainer extends React.Component {
   // dynamically shows data depending on state
   areaChartData = () => {
     const data = [
-      { name: `${this.lastLastMonth()}`, Amount: this.state.thisMonth },
+      { name: `${this.lastLastMonth()}`, Amount: this.state.lastLastMonth },
       { name: `${this.lastMonth()}`, Amount: this.state.lastMonth },
-      { name: `${this.thisMonth()}`, Amount: this.state.lastLastMonth }
+      { name: `${this.thisMonth()}`, Amount: this.state.categorySpent }
     ]
     return data
   }
