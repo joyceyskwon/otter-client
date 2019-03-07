@@ -8,7 +8,8 @@ class TransactionItem extends React.Component {
   state = {
     name: this.props.name,
     date: this.props.date,
-    amount: this.props.amount
+    amount: this.props.amount,
+    open: false
   }
 
   onChange = e => {
@@ -55,7 +56,11 @@ class TransactionItem extends React.Component {
     }
   }
 
+  close = () => this.setState({ open: false })
+  open = () => this.setState({ open: true })
+
   render() {
+    const { open } = this.state
     return (
       <Table.Body>
         <Table.Row>
@@ -63,7 +68,7 @@ class TransactionItem extends React.Component {
           <Table.Cell>{this.props.date}</Table.Cell>
           <Table.Cell><Icon name='dollar sign'/>{this.props.amount}</Table.Cell>
           <Table.Cell>
-            <Modal className={"modal"} trigger={<Button className={"edit-trans-button"}>Edit</Button>}>
+            <Modal className={"modal"} trigger={<Button className={"edit-trans-button"} onClick={this.open}>Edit</Button>}>
               <Modal.Header>Edit Transaction</Modal.Header>
               <Modal.Content>
                 <Form onChange={this.onChange} onSubmit={this.onSubmit}>
@@ -95,7 +100,7 @@ class TransactionItem extends React.Component {
                       />
                   </Form.Group>
                   <Modal.Actions>
-                    <Form.Button className={"new-trans-submit-button"} type="submit">Submit</Form.Button>
+                    <Form.Button className={"new-trans-submit-button"} type="submit" onClick={this.close}>Submit</Form.Button>
                   </Modal.Actions>
                 </Form>
               </Modal.Content>

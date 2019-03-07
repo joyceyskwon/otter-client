@@ -23,7 +23,8 @@ class TransactionForm extends React.Component {
     name: '',
     date: '',
     amount: 0,
-    location: ''
+    location: '',
+    open: false
   }
 
   handleSelectChange = (e, { value }) => {
@@ -59,10 +60,17 @@ class TransactionForm extends React.Component {
     })
   }
 
+  close = () => this.setState({ open: false })
+  open = () => this.setState({ open: true })
+
   render() {
-    const { value } = this.state
+    const { value, open } = this.state
     return (
-      <Modal className={"modal"} trigger={<Button className={"new-trans-button"} floated='right'>New Transaction</Button>}>
+      <Modal
+        open={open}
+        className={"modal"}
+        trigger={<Button className={"new-trans-button"} floated='right' onClick={this.open}>New Transaction</Button>}
+      >
         <Modal.Header>New Transaction</Modal.Header>
         <Modal.Content>
           <Form onSubmit={this.onSubmit}>
@@ -114,7 +122,7 @@ class TransactionForm extends React.Component {
                 />
             </Form.Group>
             <Modal.Actions>
-              <Form.Button className={"new-trans-submit-button"} type="submit">Submit</Form.Button>
+              <Form.Button className={"new-trans-submit-button"} type="submit" onClick={this.close}>Submit</Form.Button>
             </Modal.Actions>
           </Form>
         </Modal.Content>
