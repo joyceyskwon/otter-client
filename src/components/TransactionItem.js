@@ -27,6 +27,7 @@ class TransactionItem extends React.Component {
     }
     // console.log(updatedTrans);
     this.props.editTransactions(updatedTrans, this.props.id)
+    this.close()
   }
 
   handleDelete = () => {
@@ -68,7 +69,7 @@ class TransactionItem extends React.Component {
           <Table.Cell>{this.props.date}</Table.Cell>
           <Table.Cell><Icon name='dollar sign'/>{this.props.amount}</Table.Cell>
           <Table.Cell>
-            <Modal className={"modal"} trigger={<Button className={"edit-trans-button"} onClick={this.open}>Edit</Button>}>
+            <Modal open={open} className={"modal"} trigger={<Button className={"edit-trans-button"} onClick={this.open}>Edit</Button>}>
               <Modal.Header>Edit Transaction</Modal.Header>
               <Modal.Content>
                 <Form onChange={this.onChange} onSubmit={this.onSubmit}>
@@ -100,7 +101,7 @@ class TransactionItem extends React.Component {
                       />
                   </Form.Group>
                   <Modal.Actions>
-                    <Form.Button className={"new-trans-submit-button"} type="submit" onClick={this.close}>Submit</Form.Button>
+                    <Form.Button className={"new-trans-submit-button"} type="submit">Submit</Form.Button>
                   </Modal.Actions>
                 </Form>
               </Modal.Content>

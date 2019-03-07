@@ -34,8 +34,8 @@
   }
 }
 
-#spent {display:inline-block;margin-right:10px;}
-#left {display:inline-block;} 
+#spent {display:inline-block;margin-right:80px;}
+#left {display:inline-block;}
 
 .content-container {
   /* border-style: solid; */

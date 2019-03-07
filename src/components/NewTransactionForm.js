@@ -58,6 +58,7 @@ class TransactionForm extends React.Component {
       amount: 0,
       location: ''
     })
+    this.close()
   }
 
   close = () => this.setState({ open: false })
@@ -122,7 +123,7 @@ class TransactionForm extends React.Component {
                 />
             </Form.Group>
             <Modal.Actions>
-              <Form.Button className={"new-trans-submit-button"} type="submit" onClick={this.close}>Submit</Form.Button>
+              <Form.Button className={"new-trans-submit-button"} type="submit">Submit</Form.Button>
             </Modal.Actions>
           </Form>
         </Modal.Content>
