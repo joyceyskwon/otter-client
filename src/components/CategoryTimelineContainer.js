@@ -104,9 +104,9 @@ class CategoryTimelineContainer extends React.Component {
   // dynamically shows data depending on state
   areaChartData = () => {
     const data = [
-      { name: `${this.lastLastMonth()}`, uv: this.state.thisMonth },
-      { name: `${this.lastMonth()}`, uv: this.state.lastMonth },
-      { name: `${this.thisMonth()}`, uv: this.state.lastLastMonth }
+      { name: `${this.lastLastMonth()}`, Amount: this.state.thisMonth },
+      { name: `${this.lastMonth()}`, Amount: this.state.lastMonth },
+      { name: `${this.thisMonth()}`, Amount: this.state.lastLastMonth }
     ]
     return data
   }

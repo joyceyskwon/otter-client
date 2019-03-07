@@ -17,11 +17,11 @@
   background-color: #FF8042;
   color: #fff;
 }
-
+/*
 .ui.button {
   background-color: #FF8042;
   color: #fff;
-}
+} */
 
 @media only screen and (max-width: 768px) {
   /* For everything smaller than 768px */
@@ -33,6 +33,9 @@
     transform: translateY(-50%);
   }
 }
+
+#spent {display:inline-block;margin-right:10px;}
+#left {display:inline-block;} 
 
 .content-container {
   /* border-style: solid; */
@@ -76,9 +79,11 @@
 }
 
 .footer-container {
-  background-color: #171717;
-  color: #fff;
+  background-color: #D1D1D1;
+  color: #000;
   margin-left: 180px;
+  position: absolute;
+  bottom: 0;
 }
 
 .left-text {
@@ -88,6 +93,10 @@
 
 .right-text {
   display: inline-block;
+}
+
+.profile-picture {
+  width: 100px;
 }
 
 .ui.thin.left.sidebar {

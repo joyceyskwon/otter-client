@@ -75,6 +75,7 @@ return  this.props.transactions.sort(function (first, second) { return parseFloa
               <Table.HeaderCell>Date</Table.HeaderCell>
               <Table.HeaderCell>Amount</Table.HeaderCell>
               <Table.HeaderCell>Edit</Table.HeaderCell>
+              <Table.HeaderCell>Delete</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 

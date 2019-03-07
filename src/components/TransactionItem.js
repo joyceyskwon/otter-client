@@ -1,19 +1,35 @@
 import React from 'react'
 import { Table, Icon, Button, Modal, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { editTransactions, deleteTransaction } from '../actions/index'
 
 class TransactionItem extends React.Component {
 
   state = {
     name: this.props.name,
-    data: this.props.date,
+    date: this.props.date,
     amount: this.props.amount
+  }
+
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   onSubmit = e => {
     e.preventDefault()
     const updatedTrans = {
-      
+      name: this.state.name,
+      date: this.state.date,
+      amount: this.state.amount
     }
+    // console.log(updatedTrans);
+    this.props.editTransactions(updatedTrans, this.props.id)
+  }
+
+  handleDelete = () => {
+    this.props.deleteTransaction(this.props.id)
   }
 
   renderIcons = categoryId => {
@@ -50,7 +66,7 @@ class TransactionItem extends React.Component {
             <Modal className={"modal"} trigger={<Button className={"edit-trans-button"}>Edit</Button>}>
               <Modal.Header>Edit Transaction</Modal.Header>
               <Modal.Content>
-                <Form onSubmit={this.onSubmit}>
+                <Form onChange={this.onChange} onSubmit={this.onSubmit}>
                   <Form.Group>
                     <Form.Input
                       width={12}
@@ -58,7 +74,6 @@ class TransactionItem extends React.Component {
                       type="text"
                       name="name"
                       value={this.state.name}
-                      onChange={this.onChange}
                     />
                   </Form.Group>
                   <Form.Group>
@@ -68,7 +83,6 @@ class TransactionItem extends React.Component {
                       type="date"
                       name="date"
                       value={this.state.date}
-                      onChange={this.onChange}
                       />
                     </Form.Group>
                     <Form.Group>
@@ -78,7 +92,6 @@ class TransactionItem extends React.Component {
                       type="number"
                       name="amount"
                       value={this.state.amount}
-                      onChange={this.onChange}
                       />
                   </Form.Group>
                   <Modal.Actions>
@@ -88,10 +101,11 @@ class TransactionItem extends React.Component {
               </Modal.Content>
             </Modal>
           </Table.Cell>
+          <Table.Cell><Button onClick={this.handleDelete}>Delete</Button></Table.Cell>
         </Table.Row>
       </Table.Body>
     )
   }
 }
 
-export default TransactionItem
+export default connect(null, { editTransactions, deleteTransaction })(TransactionItem)

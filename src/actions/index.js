@@ -6,7 +6,9 @@ import {
   SET_CURRENT_USER,
   LOGOUT_USER,
   FETCH_WEATHER,
-  API_ROOT
+  API_ROOT,
+  EDIT_TRANSACTION,
+  DELETE_TRANSACTION
 } from './types'
 
 // Was trying to get current user's location
@@ -70,8 +72,8 @@ export const createTransaction = (transactionData) => dispatch => {
 }
 
 // used in EditTransactionForm.js
-export const editTransactions = (transactionData) => dispatch => {
-  fetch(`${API_ROOT}/api/v1/transactions/${transactionData.id}`, {
+export const editTransactions = (transactionData, id) => dispatch => {
+  fetch(`${API_ROOT}/api/v1/transactions/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -80,7 +82,19 @@ export const editTransactions = (transactionData) => dispatch => {
     body: JSON.stringify(transactionData)
   })
   .then(r => r.json())
-  .then(data => console.log(data))
+  .then(updatedData => {
+    dispatch({
+      type: EDIT_TRANSACTION,
+      payload: updatedData
+    })
+  })
+}
+
+export const deleteTransaction = transactionId => dispatch => {
+  fetch(`${API_ROOT}/api/v1/transactions/${transactionId}`, {
+    method: 'DELETE'
+  })
+  dispatch({type: DELETE_TRANSACTION, payload: transactionId})
 }
 
 // UNUSED - DELETE

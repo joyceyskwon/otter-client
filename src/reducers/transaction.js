@@ -1,7 +1,8 @@
 import {
   FETCH_TRANSACTIONS,
   NEW_TRANSACTION,
-  FILTER_BY_MONTH
+  FILTER_BY_MONTH,
+  EDIT_TRANSACTION
 } from '../actions/types'
 
 const initialState = {
@@ -22,10 +23,10 @@ export default function(state = initialState, action) {
         items: [...state.items, action.payload],
         item: action.payload
       }
-    case FILTER_BY_MONTH:
+    case EDIT_TRANSACTION:
       return {
         ...state,
-        items: action.payload
+        items: [...state.items, action.payload]
       }
     default:
       return state

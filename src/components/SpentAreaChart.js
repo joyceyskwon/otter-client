@@ -1,9 +1,9 @@
-// props from CategoryTimelineContainer.js
+// props from TotalBalance.js
 
 import React from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
-const CategoryAreaChart = props => {
+const SpentAreaChart = props => {
   return (
     <AreaChart
       width={500}
@@ -17,9 +17,9 @@ const CategoryAreaChart = props => {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey="Amount" stroke="#FF8042" fill="#FF8042" />
+      <Area type="monotone" dataKey="Spent" stroke="#FF8042" fill="#FF8042" />
     </AreaChart>
   )
 }
 
-export default CategoryAreaChart
+export default SpentAreaChart

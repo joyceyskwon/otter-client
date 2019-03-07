@@ -2,10 +2,13 @@
 
 import React from 'react'
 import SpentLeftChart from './SpentLeftChart'
+import SpentAreaChart from './SpentAreaChart'
 import { Icon, Divider } from 'semantic-ui-react'
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
+
+const today = new Date()
 
 class TotalBalance extends React.Component {
 
@@ -15,7 +18,10 @@ class TotalBalance extends React.Component {
     spent: 0,
     left: 0,
     spentPercent: 0,
-    leftPercent: 100
+    leftPercent: 100,
+    thisMonth: 0,
+    lastMonth: 0,
+    lastLastMonth: 0
   }
 
   componentDidMount() {
@@ -105,20 +111,60 @@ class TotalBalance extends React.Component {
     return data
   }
 
+  // select options - today's month
+  thisMonth = () => {
+    return monthNames[today.getMonth()]
+  }
+
+  // select options - last month
+  lastMonth = () => {
+    if (today.getMonth() === 0) {
+      return monthNames[12]
+    } else {
+      return monthNames[today.getMonth() - 1]
+    }
+  }
+
+  // select options - 2 months ago
+  lastLastMonth = () => {
+    if (monthNames[today.getMonth()] === "January") {
+      return monthNames[10]
+    } else if (monthNames[today.getMonth()] === "February") {
+      return monthNames[11]
+    } else {
+      return monthNames[today.getMonth() - 2]
+    }
+  }
+
+  // data for the area chart for monthly spending
+  areaChartData = () => {
+    const data = [
+      { name: `${this.lastLastMonth()}`, Spent: this.state.thisMonth },
+      { name: `${this.lastMonth()}`, Spent: this.state.lastMonth },
+      { name: `${this.thisMonth()}`, Spent: this.state.lastLastMonth }
+    ]
+    return data
+  }
+
   render() {
     return (
       <div className="content-container totalbalance">
         <h1>{this.changeMonthToString()}</h1>
         <h2>Income: ${this.props.currentUser.monthly_income}</h2>
         <Divider />
-        <Icon link name='area graph'/>
-        <Icon link name='pie graph'/>
+        <Icon link={true} name='area graph'/>
         <SpentLeftChart
           pieData={this.pieData()}
+          spent={this.state.spent}
+          left={this.state.left}
         />
 
-      <h4 className={"left-text"}>Spent: ${this.state.spent}</h4>
-      <h4 className={"right-text"}>Left: ${this.state.left}</h4>
+        <Icon link name='pie graph'/>
+        <SpentAreaChart
+          data={this.areaChartData()}
+        />
+        <h4 id="spent">Spent: ${this.state.spent}</h4>
+        <h4 id="left">Left: ${this.state.left}</h4>
       </div>
     )
   }
