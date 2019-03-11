@@ -21,7 +21,7 @@ const renderActiveShape = (props) => {
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill="#fff">{payload.name}</text>
       <Sector
         cx={cx}
         cy={cy}
@@ -49,7 +49,7 @@ const renderActiveShape = (props) => {
 
 const CategoryChart = props => {
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={400} height={400} id={"categoryChart"}>
       <Pie
         activeIndex={props.activeIndex}
         activeShape={renderActiveShape}

@@ -1,17 +1,16 @@
 import React from 'react'
-import { Menu, Responsive } from 'semantic-ui-react'
+import logo from '../assets/otter.svg'
+import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
-const getWidth = () => {
-  const isSSR = typeof window === 'undefined'
-  return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
-}
 
 const Nav = props => {
   return (
-    <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+
       <Menu fixed='top' inverted>
-        <Link to="/" className="item">O T T E R</Link>
+        <Link to="/" className={"nav-logo-item"}>
+          <img src={logo} alt="otter-logo" />
+        </Link>
+
         {
           !props.currentUser ?
           <Menu.Menu position="right">
@@ -24,7 +23,7 @@ const Nav = props => {
           </Menu.Menu>
         }
       </Menu>
-    </Responsive>
+
   )
 }
 

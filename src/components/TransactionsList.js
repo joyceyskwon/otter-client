@@ -68,7 +68,7 @@ return  this.props.transactions.sort(function (first, second) { return parseFloa
           value={value}
         />
         <h2>All Transactions</h2>
-        <Table celled>
+        <Table celled className={"transactions-table"}>
           <Table.Header className={"table-header"}>
             <Table.Row>
               <Table.HeaderCell>Name</Table.HeaderCell>

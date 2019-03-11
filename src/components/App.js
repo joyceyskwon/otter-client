@@ -11,6 +11,7 @@ import Footer from './Footer'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { createNewUser, loginUser, logout, tokenLogin } from '../actions/index'
+import { Grid, Column } from 'semantic-ui-react'
 import './App.css'
 
 class App extends React.Component {
@@ -34,20 +35,25 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+
           <Nav
             currentUser={this.props.currentUser}
             logout={this.logout}
           />
+        { !this.props.currentUser ?
+          ""
+          :
           <SideNav
             currentUser={this.props.currentUser}
-          />
+            />
+        }
+
           <Route exact path="/" component={Homepage} />
           <Route exact path="/overview" component={AccountContainer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/transactions" component={TransactionsContainer} />
           <Route exact path="/profile" component={ProfileContainer} />
-          <Footer />
         </div>
       </Router>
     )

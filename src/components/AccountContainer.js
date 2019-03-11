@@ -6,8 +6,8 @@ import CategoryTimelineContainer from './CategoryTimelineContainer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchCurrentWeather } from '../actions/index'
-import { Responsive } from 'semantic-ui-react'
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+import { Responsive, Grid,
+Segment } from 'semantic-ui-react'
 
 class AccountContainer extends React.Component {
 
@@ -15,24 +15,19 @@ class AccountContainer extends React.Component {
   render() {
     if (this.props.currentUser) {
       return (
-        <div className="account-container">
-          <ResponsiveMasonry
-                columnsCountBreakPoints={{350: 1}}
-          >
-            <Masonry columnsCount={1}>
-              <TotalBalance
-                currentUser={this.props.currentUser}
-              />
-              <CategoryContainer
-                transactions={this.props.currentUser.transactions}
-              />
-              <CategoryTimelineContainer
-                transactions={this.props.currentUser.transactions}
-              />
-            </Masonry>
-          </ResponsiveMasonry>
-        </div>
+        <div className={"account-container"}>
+          <TotalBalance
+            currentUser={this.props.currentUser}
+          />
 
+          <CategoryContainer
+            transactions={this.props.currentUser.transactions}
+          />
+
+          <CategoryTimelineContainer
+            transactions={this.props.currentUser.transactions}
+          />
+        </div>
     )} else {
       return (
         <Homepage

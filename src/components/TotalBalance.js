@@ -205,7 +205,7 @@ class TotalBalance extends React.Component {
 
   render() {
     return (
-      <div className="content-container totalbalance">
+      <div className={"content-container totalbalance"}>
         <h1>{this.changeMonthToString()}</h1>
         <h2>Income: ${this.props.currentUser.monthly_income}</h2>
         <Divider />

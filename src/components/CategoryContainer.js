@@ -165,7 +165,7 @@ class CategoryContainer extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="content-container categorycontainer">
+      <div className={"content-container categorycontainer"}>
         <h1>Sort by Month</h1>
         <Dropdown
           className={"filter-dropdown"}

@@ -4,6 +4,18 @@
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.nav-logo-item {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 5px;
+  width: 130px;
+}
+
+.homepage-logo {
+  height: 100px;
+}
+
 .modal {
   float: right;
   transform: translateY(-50%);
@@ -17,11 +29,7 @@
   background-color: #FF8042;
   color: #fff;
 }
-/*
-.ui.button {
-  background-color: #FF8042;
-  color: #fff;
-} */
+
 
 @media only screen and (max-width: 768px) {
   /* For everything smaller than 768px */
@@ -48,24 +56,51 @@
   float: left;
   border-radius: 15px;
   margin-top: 80px;
-  margin-left: 210px;
   margin-right: 20px;
   margin-bottom: 30px;
 }
 
-.transactions-container {
-  border-radius: 25px;
-  margin-top: 80px;
-  margin-left: 180px;
-  margin-right: 30px;
+.homepage-container {
+  padding: 30px;
+  color: #fff;
+  margin-top: 70px;
+  margin-left: 140px;
+  padding: 50px;
+  height: 100vh;
+  /* height: 1000%; */
+  background: url("https://cdn.dribbble.com/users/934248/screenshots/3282460/circle-perspection_dribbble.gif") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-/* .sidenav {
-  border-radius: 25px;
-} */
+.login-container {
+  margin-left: 140px;
+  padding: 30px;
+  margin-top: 70px;
+}
+
+.transactions-container {
+  padding: 40px;
+  margin-left: 140px;
+  margin-top: 60px;
+  height: 100vh;
+  background-color: #D1D1D1;
+  color: #333;
+}
+
+.transactions-table {
+  padding: 20px
+}
 
 .account-container {
   background-color: #D1D1D1;
+  padding: 40px;
+  margin-left: 140px;
+  height: 500vh;
+  /* margin-top: 40px; */
+  /* grid-template-columns: repeat(auto-fit, 100px); */
 }
 
 .content-container.totalbalance {
@@ -73,15 +108,33 @@
   padding: 40px;
 }
 
+#spentLeftChart {
+  width: 100%;
+}
+
+#spentAreaChart {
+  width: 100%;
+}
+
 .content-container.categorycontainer {
   background-color: #FF8042;
   padding: 40px;
   color: #fff;
+  /* width: 400px; */
+}
+
+#categoryChart {
+  width: 100%;
 }
 
 .content-container.categorytimeline {
   background-color: #fff;
   padding: 40px;
+  /* width: 400px; */
+}
+
+#categoryAreaChart {
+  width: 100%
 }
 
 .footer-container {
@@ -105,10 +158,15 @@
   width: 100px;
 }
 
+.profile-container {
+  padding: 100px;
+  margin-left: 100px;
+}
+
 .ui.thin.left.sidebar {
   max-height: 100%;
   width: 150px;
-  top: 40px;
+  top: 71.38px;
 }
 
 .selected-link {

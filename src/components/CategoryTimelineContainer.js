@@ -190,7 +190,7 @@ class CategoryTimelineContainer extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="content-container categorytimeline">
+      <div className={"content-container categorytimeline"}>
         <Dropdown
           onChange={this.filterByCategory}
           options={this.renderOptions()}
