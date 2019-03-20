@@ -11,7 +11,6 @@ import Footer from './Footer'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { createNewUser, loginUser, logout, tokenLogin } from '../actions/index'
-import { Grid, Column } from 'semantic-ui-react'
 import './App.css'
 
 class App extends React.Component {

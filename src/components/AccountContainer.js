@@ -6,8 +6,6 @@ import CategoryTimelineContainer from './CategoryTimelineContainer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { fetchCurrentWeather } from '../actions/index'
-import { Responsive, Grid,
-Segment } from 'semantic-ui-react'
 
 class AccountContainer extends React.Component {
 

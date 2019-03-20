@@ -7,7 +7,7 @@ const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
   const {
     cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-    fill, payload, value, name
+    fill, payload, value
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -19,7 +19,7 @@ const renderActiveShape = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end'
 
-  if (value === NaN) {
+  if (isNaN(value)) {
     return (
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill="#fff">{payload.name}</text>
@@ -43,7 +43,7 @@ const renderActiveShape = (props) => {
           />
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text fontSize="18px" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#fff">{`Loading...`}</text>
+        <text fontSize="18px" x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#fff">{`0%`}</text>
       </g>
     )
   } else {

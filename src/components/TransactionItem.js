@@ -25,7 +25,6 @@ class TransactionItem extends React.Component {
       date: this.state.date,
       amount: this.state.amount
     }
-    // console.log(updatedTrans);
     this.props.editTransactions(updatedTrans, this.props.id)
     this.close()
   }
@@ -65,9 +64,15 @@ class TransactionItem extends React.Component {
     return (
       <Table.Body>
         <Table.Row>
-          <Table.Cell>{this.renderIcons(this.props.category_id)} {this.props.name}</Table.Cell>
-          <Table.Cell>{this.props.date}</Table.Cell>
-          <Table.Cell><Icon name='dollar sign'/>{this.props.amount}</Table.Cell>
+          <Table.Cell>
+            {this.renderIcons(this.props.category_id)} {this.props.name}
+          </Table.Cell>
+          <Table.Cell>
+            {this.props.date}
+          </Table.Cell>
+          <Table.Cell>
+            <Icon name='dollar sign'/>{this.props.amount}
+          </Table.Cell>
           <Table.Cell>
             <Modal open={open} className={"modal"} trigger={<Button className={"edit-trans-button"} onClick={this.open}>Edit</Button>}>
               <Modal.Header>Edit Transaction</Modal.Header>

@@ -52,7 +52,6 @@ class CategoryContainer extends React.Component {
         } else {
           amount[trans.category_id] = parseFloat(trans.amount)
         }
-        this.setState()
         total += Math.round(parseFloat(trans.amount)*100/100)
       })
       this.setState({

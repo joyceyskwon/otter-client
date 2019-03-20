@@ -8,7 +8,9 @@ import {
   FETCH_WEATHER,
   API_ROOT,
   EDIT_TRANSACTION,
-  DELETE_TRANSACTION
+  DELETE_TRANSACTION,
+  UPDATE_USER,
+  FETCH_ALL_USERS
 } from './types'
 
 // Was trying to get current user's location
@@ -135,6 +137,38 @@ export const createNewUser = (newUserData, history) => dispatch => {
       history.push('/overview')
     }
   })
+}
+
+// fetch all users
+export const fetchAllUsers = () => dispatch => {
+  fetch(`${API_ROOT}/api/v1/users`)
+  .then(r => r.json())
+  .then(response =>
+    dispatch({
+      type: FETCH_ALL_USERS,
+      payload: response
+    })
+  )
+}
+
+// updates a user information
+export const editUser = (userData, userId) => dispatch => {
+  console.log("am I in the actions index.js???");
+  fetch(`${API_ROOT}/api/v1/users/${userId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  })
+  .then(r => r.json())
+  .then(updatedUserData =>
+    dispatch({
+    type: UPDATE_USER,
+    payload: updatedUserData
+    })
+  )
 }
 
 // used in App.js, when the page refreshes

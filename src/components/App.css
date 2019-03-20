@@ -75,6 +75,21 @@
   background-size: cover;
 }
 
+.logged-out-homepage-container {
+  padding: 30px;
+  color: #fff;
+  margin-top: 70px;
+  margin-left: 0px;
+  padding: 50px;
+  height: 100vh;
+  /* height: 1000%; */
+  background: url("https://cdn.dribbble.com/users/934248/screenshots/3282460/circle-perspection_dribbble.gif") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .login-container {
   margin-left: 140px;
   padding: 30px;
@@ -85,7 +100,7 @@
   padding: 40px;
   margin-left: 140px;
   margin-top: 60px;
-  height: 100vh;
+  height: 400vh;
   background-color: #D1D1D1;
   color: #333;
 }

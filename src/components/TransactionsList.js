@@ -6,27 +6,21 @@ import { Table, Dropdown } from 'semantic-ui-react'
 
 
 class TransactionsList extends React.Component {
-  //
-  // state = {
-  //   filteredTransactions: this.props.transactions
-  // }
 
   state = {
     value: ""
   }
 
   filterLowtoHigh = () => {
-return  this.props.transactions.sort(function (first, second) { return parseFloat(first.amount) - parseFloat(second.amount)})
+    return this.props.transactions.sort((first, second) => parseFloat(first.amount) - parseFloat(second.amount))
   }
 
   filterHightoLow = () => {
-return  this.props.transactions.sort(function (first, second) { return parseFloat(second.amount) - parseFloat(first.amount)})
+    return this.props.transactions.sort((first, second) => parseFloat(second.amount) - parseFloat(first.amount))
   }
 
   filterByMostRecent = () => {
-
-       return this.props.transactions.sort(function (first, second) { return new Date(second.date) - new Date(first.date)})
-
+     return this.props.transactions.sort((first, second) => new Date(second.date) - new Date(first.date))
   }
 
   handleFilter = (e, { value }) => {

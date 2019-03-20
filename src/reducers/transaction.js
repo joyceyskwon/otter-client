@@ -1,7 +1,6 @@
 import {
   FETCH_TRANSACTIONS,
   NEW_TRANSACTION,
-  FILTER_BY_MONTH,
   EDIT_TRANSACTION
 } from '../actions/types'
 
