@@ -1,10 +1,10 @@
-#Otter: The Front End
+# Otter: The Front End
 
 Otter is a budgeting visualizer that helps users manage their personal finance through visual demonstration of their monthly spendings.
 
 Otter front-end is built with React to be responsive for the data visualization.
 
-View [demo](https://youtu.be/73MHGAAkCm8).
+View [demo](https://youtu.be/73MHGAAkCm8)
 
 ## Contents
 
