@@ -14,6 +14,8 @@ View [demo](https://youtu.be/73MHGAAkCm8)
 - [Installation](#installation)
 - [Structure](#structure)
 - [Components](#components)
+- [JWT / Auth](#jwt--auth)
+- [Future Development](#future-development)
 
 ## Libraries & Middleware
 
@@ -79,7 +81,7 @@ The `TransactionsContainer` component is responsible for 1) listing all the exis
 
 The `ProfileContainer` component renders the user account information, including the bank information.
 
-## JWT / Auth
+## JWT & Auth
 
 This app uses JWT token and BCrypt for secure authentication.
 
