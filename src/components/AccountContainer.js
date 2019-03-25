@@ -5,7 +5,6 @@ import CategoryContainer from './CategoryContainer'
 import CategoryTimelineContainer from './CategoryTimelineContainer'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchCurrentWeather } from '../actions/index'
 
 class AccountContainer extends React.Component {
 
@@ -28,17 +27,14 @@ class AccountContainer extends React.Component {
         </div>
     )} else {
       return (
-        <Homepage
-          currentWeather={this.props.fetchCurrentWeather()}
-        />
+        <Homepage />
       )
     }
   }
 }
 
-const mapStateToProps = ({ auth, weather }) => ({
-  currentUser: auth.currentUser,
-  weather: weather.weather
+const mapStateToProps = ({ auth }) => ({
+  currentUser: auth.currentUser
 })
 
-export default withRouter(connect(mapStateToProps, { fetchCurrentWeather })(AccountContainer))
+export default withRouter(connect(mapStateToProps)(AccountContainer))

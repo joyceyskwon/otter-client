@@ -5,7 +5,6 @@ import {
   POST_NEW_USER,
   SET_CURRENT_USER,
   LOGOUT_USER,
-  FETCH_WEATHER,
   API_ROOT,
   EDIT_TRANSACTION,
   DELETE_TRANSACTION,
@@ -30,16 +29,16 @@ import {
 
 // fetches current weather userData
 // UNUSED - will use later for homepage
-export const fetchCurrentWeather = () => dispatch => {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=40.7039&lon=74.0139&appid=d6a40e6f59b078301c32fa838e7d5760`)
-  .then(r => r.json())
-  .then(weatherData => {
-    dispatch({
-      type: FETCH_WEATHER,
-      payload: weatherData.weather[0]
-    })
-  })
-}
+// export const fetchCurrentWeather = () => dispatch => {
+//   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=40.7039&lon=74.0139&appid=d6a40e6f59b078301c32fa838e7d5760`)
+//   .then(r => r.json())
+//   .then(weatherData => {
+//     dispatch({
+//       type: FETCH_WEATHER,
+//       payload: weatherData.weather[0]
+//     })
+//   })
+// }
 
 // UNUSED - DELETE
 export const fetchTransactions = userId => dispatch => {
