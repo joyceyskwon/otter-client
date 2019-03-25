@@ -1,6 +1,6 @@
 # Otter: The Front End
 
-![alt text](https://github.com/joyceyskwon/otter-client/blob/master/src/assets/otter.svg)
+![alt text](https://github.com/joyceyskwon/otter-client/blob/master/src/assets/otter-black.svg)
 
 Otter is a budgeting visualizer that helps users manage their personal finance through visual demonstration of their monthly spendings.
 
