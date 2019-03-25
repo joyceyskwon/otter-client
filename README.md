@@ -2,7 +2,7 @@
 
 ![otter-logo](https://github.com/joyceyskwon/otter-client/blob/master/src/assets/otter-black.svg)
 
-Otter is a budgeting visualizer that helps users manage their personal finance through visual demonstration of their monthly spendings.
+Thank you for using Otter. Otter is a budgeting visualizer that helps users manage their personal finance through visual demonstration of their monthly spendings.
 
 Otter front-end is built with React to be responsive for the data visualization.
 
@@ -59,25 +59,31 @@ The `SideNav` component handles different routes for rendering different transac
 
 The `AccountContainer` component renders the overview of the user's transactional data, handling major portion of data visualization. It contains `TotalBalance`, `CategoryContainer`, and `CategoryTimelineContainer` components.
 
+### TotalBalance.js
+
+The `TotalBalance` component is responsible for visualizing user's total spending for the current month. It consists of an animated pie chart and area chart.
+
+### CategoryContainer.js
+
+The `CategoryContainer` component visualizes the categorical spending for the past 2 months. It renders a pie chart that animates the percentages and the names of the category. Using this pie chart, user is able to speculate in which category he/she spent most on for that month.
+
+### CategoryTimelineContainer.js
+
+The `CategoryTimelineContainer` component renders the user's activities based on the category. It houses an area chart for each category showing the total amount spent for that month for each filtered category.
+
 ### TransactionsContainer.js
 
 The `TransactionsContainer` component is responsible for 1) listing all the existing transactions for the logged in user, 2) filtering existing transactions by the date it was created and the amount, and lastly, 3) handling RESTful `POST`, `PATCH`, `DELETE` requests for creating, editing, deleting transactions.
 
 ### ProfileContainer.js
 
-The `ProfileContainer` component renders the user account information, including the
+The `ProfileContainer` component renders the user account information, including the bank information.
 
-### `Frontend`
+## JWT / Auth
 
-- [x] Interacting with a complex API
-- [ ] Auth
-- [ ] Tests
-- [ ] Redux
-- [ ] Custom CSS
-- [ ] One significant refactor
+This app uses JWT token and BCrypt for secure authentication.
 
+## Future Development
 
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Some ideas for new features are:
+- Updating user's account information through a `PATCH` request
