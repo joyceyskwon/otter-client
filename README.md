@@ -27,9 +27,9 @@ Otter is built using the followings:
 - [Recharts](https://github.com/recharts/recharts) is used to animate and display transactional data on the page
 - [Semantic UI React](https://github.com/Semantic-Org/Semantic-UI-React) is used for styling
 
-## installation
+## Installation
 
-To get started with Otter, fork this repo and clone it to your hard drive. `cd` into the folder and run ```npm install```, then run ```npm start``` to start the app. Your locally-hosted version of the app will receive data from a Ruby on Rails back-end from otter-server.herokuapp.com. For more information about the structure of Otter's back-end, visit [here](https://github.com/joyceyskwon/otter-server).
+To get started with Otter, fork this repo and clone it to your hard drive. `cd` into the folder and run ```npm install```, then run ```npm start``` to start the app. Your locally-hosted version of the app will receive data from a Ruby on Rails back-end from otter-server.herokuapp.com. For more information about the structure of Otter's back-end, visit [here](https://github.com/joyceyskwon/otter-server). Once you have finished installing the front-end, please login as one of the users from the back-end API that is deployed on Heroku(https://otter-server.herokuapp.com/api/v1/users).
 
 ## Structure
 
@@ -38,7 +38,7 @@ A `public` folder is the top-level folder that holds `index.html` file where the
 Inside the `src` folder:
 - `components` folder holds all the React components for the app
 - `reducers` folder contains different reducers that handle Redux logic for respective components and `index.js` file that combines all reducers to be imported into `store.js` as a `rootReducer`
-- `actions` folder contains `index.js` file that handles all the fetches and dispatches and `type.js` file that exports all the string types as constants
+- `actions` folder contains `index.js` file that handles all the fetches and dispatches from the back-end API. `type.js` file that exports all the string types as constants
 - `assets` folder holds the Otter logo svg file, homepage animation, and default user image.
 
 ## Components
