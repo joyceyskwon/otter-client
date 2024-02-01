@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.7.3",
+    "chart.js": "^4.4.1",
     "history": "^4.7.2",
     "react": "^16.8.3",
     "react-actioncable-provider": "^2.0.0",
